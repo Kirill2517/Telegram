@@ -1,0 +1,18 @@
+{
+  "devSetting": {
+    "issuer": "MyAuthServer",
+    "audience": "MyAuthClient",
+    "lifetime": 10,
+    "key": "mysupersecret_secretkey!123",
+    "dbConnection": "server=204.2.195.76;port=21504;database=TestDataBase;uid=Server;password=t4KZuAu)en"
+  },
+
+  "releaseSetting": {
+    "issuer": "MyAuthServer",
+    "audience": "MyAuthClient",
+    "lifetime": 10,
+    "key": "mysupersecret_secretkey!123",
+    "dbConnection": "server=204.2.195.76;port=21504;database=TestDataBase;uid=Server;password=t4KZuAu)en"
+  }
+}
+//   "dbConnection": "server=localhost;port=3306;database=testdatabase;uid=root;password=1234"
