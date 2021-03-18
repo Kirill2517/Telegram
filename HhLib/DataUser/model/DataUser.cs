@@ -17,12 +17,12 @@ namespace HhLib.DataUser.model
 
         public override bool IsValid()
         {
-            //if (new List<object> { email, firstName, middleName, surname, phone }.Contains(null))
-            //    return false;
-            //if (!new EmailAddressAttribute().IsValid(email))
-            //    return false;
-            //if (!new PhoneAttribute().IsValid(phone))
-            //    return false;
+            if (new List<object> { email, firstName, middleName, surname, phone }.Contains(null))
+                return false;
+            if (!new EmailAddressAttribute().IsValid(email))
+                return false;
+            if (!new PhoneAttribute().IsValid(phone))
+                return false;
             return true;
         }
     }

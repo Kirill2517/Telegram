@@ -10,7 +10,7 @@ namespace HhLib.Share.Models
 
         public override bool IsValid()
         {
-            throw new NotImplementedException();
+            return DataUser.IsValid();
         }
     }
 }

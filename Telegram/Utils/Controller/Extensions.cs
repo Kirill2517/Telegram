@@ -12,5 +12,10 @@ namespace Telegram.Utils.Controller
         {
             return controller.User.Identity.Name;
         }
+
+        public static bool UserIsAuthorized(this ControllerBase controller)
+        {
+            return controller.HttpContext.User.Identity.Name != null;
+        }
     }
 }

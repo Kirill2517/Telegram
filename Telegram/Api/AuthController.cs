@@ -42,11 +42,7 @@ namespace Telegram.Api
         [Route("signup/appl")]
         public async Task<IActionResult> SignUp(SignUpModel<Applicant> model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-            var controller = new HhLib.DataUser.controllers.AuthController();
-
-            return Ok(await controller.SignUpAsync(model));
+            return await SignUpIdentity(model);
         }
 
         [AllowAnonymous]
@@ -55,11 +51,20 @@ namespace Telegram.Api
         [Route("signup/empl")]
         public async Task<IActionResult> SignUp(SignUpModel<Employer> model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest();
-            var controller = new HhLib.DataUser.controllers.AuthController();
+            return await SignUpIdentity(model);
+        }
 
-            return Ok(await controller.SignUpAsync(model));
+        private async Task<IActionResult> SignUpIdentity<T>(SignUpModel<T> model) where T: User
+        {
+            var controller = new HhLib.DataUser.controllers.AuthController();
+            if (!this.UserIsAuthorized())
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+                return Ok(await controller.SignUpUnauthorizedAsync(model));
+            }
+
+            return Ok(await controller.SignUpSecondAccount(this.GetUserIdentity(), model.User));
         }
     }
 }

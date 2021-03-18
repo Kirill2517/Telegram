@@ -13,7 +13,7 @@ namespace HhLib.Share.Controllers.Base
         /// регистрация
         /// </summary>
         /// <returns></returns>
-        public abstract Task<string> SignUpAsync<T>(SignUpModel<T> signUpModel) where T : User;
+        public abstract Task<string> SignUpUnauthorizedAsync<T>(SignUpModel<T> signUpModel) where T : User;
         /// <summary>
         /// возврат токена при удачной аунтефикации
         /// </summary>

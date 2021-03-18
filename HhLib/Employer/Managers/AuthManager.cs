@@ -20,4 +20,3 @@ namespace HhLib.Employer.Managers
         }
     }
 }
-

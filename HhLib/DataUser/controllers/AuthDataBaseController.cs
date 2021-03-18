@@ -23,13 +23,12 @@ namespace HhLib.DataUser.controllers
             return await this.QueryCommandSingleAsync<bool>($"SELECT EXISTS(SELECT * FROM {bd.Title} WHERE {column} = '{key}')");
         }
 
-        public async Task<bool> EmailExistsAsync<T>(T user) where T: User
+        public async Task<bool> EmailExistsAsync<T>(T user, string identity) where T : User
         {
-            string email = user.DataUser.email;
-            if (await FieldExists("email", email, DataUserImage))
+            if (await FieldExists("email", identity, DataUserImage))
             {
-                int id = await GetUserId(email);
-                var targetImage = GetImageByUserType(user);
+                int id = await GetUserId(identity);
+                var targetImage = GetImageByType(user);
                 return await FieldExists(targetImage.IdFieldName, id, targetImage);
             }
             return false;
@@ -38,32 +37,38 @@ namespace HhLib.DataUser.controllers
             //return res;
         }
 
-        public async Task<bool> FieldsUniqAsync(model.DataUser user)
+        public async Task<bool> FieldsUniqAsync<T>(T model) where T : HhObject
         {
-            if (await FieldExists("phone", user.phone, DataUserImage))
-                return false;
+            var targetImage = GetImageByType(model);
+            foreach (var item in targetImage.UniqFields(model))
+            {
+                if (await FieldExists(item.Key, item.Value, targetImage))
+                    return false;
+            }
             return true;
         }
 
         public async Task<bool> InsertDataUserAsync(model.DataUser dataUser, string password)
         {
-            var command = DataUserImage.InsertCommand + $"VALUES (@email, @firstName, @middleName, @birthday , @surname, @phone, {password});";
+            var command = DataUserImage.InsertCommand + $"VALUES ({DataUserImage.FieldsName}, '{password}');";
             return await this.InsertCommand(command, dataUser) > 0;
         }
 
-        public async Task<bool> InsertUserAsync<T>(T user) where T : User
+        public async Task<bool> InsertUserAsync<T>(T user, string identity) where T : User
         {
-            BDImageBase targetImage = GetImageByUserType(user);
-            var command = $"{targetImage.InsertCommand} VALUES ('{await GetUserId(user.DataUser.email)}');";
+            BDImageBase targetImage = GetImageByType(user);
+            var command = $"{targetImage.InsertCommand} VALUES ('{await GetUserId(identity)}', {targetImage.FieldsName});";
             return await this.InsertCommand(command, user) > 0;
         }
 
-        private BDImageBase GetImageByUserType<T>(T user) where T : User
+        private BDImageBase GetImageByType<T>(T @object) where T : HhObject
         {
-            if (user.GetType() == typeof(Applicant.model.Applicant))
+            if (@object.GetType() == typeof(Applicant.model.Applicant))
                 return ApplicantImage;
-            if (user.GetType() == typeof(Employer.model.Employer))
+            if (@object.GetType() == typeof(Employer.model.Employer))
                 return EmployerImage;
+            if (@object.GetType() == typeof(DataUser.model.DataUser))
+                return DataUserImage;
             return null;
         }
 

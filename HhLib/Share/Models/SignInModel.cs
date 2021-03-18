@@ -11,6 +11,8 @@ namespace HhLib.Share.Models
 
         public override bool IsValid()
         {
+            if (new List<object> { email, password }.Contains(null))
+                return false;
             return true;
         }
     }
