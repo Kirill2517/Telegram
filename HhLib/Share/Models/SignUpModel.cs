@@ -12,9 +12,9 @@ namespace HhLib.Share.Models
 
         public override bool IsValid()
         {
-            if (!User.IsValid())
+            if (new List<object> { password, User }.Contains(null))
                 return false;
-            if (new List<object> { password }.Contains(null))
+            if (!User.IsValid())
                 return false;
             return true;
         }

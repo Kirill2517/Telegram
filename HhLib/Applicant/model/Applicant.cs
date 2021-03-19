@@ -18,7 +18,7 @@ namespace HhLib.Applicant.model
 
         public override bool IsValid()
         {
-            return DataUser is null || DataUser.IsValid();
+            return DataUserIsValid;
         }
     }
 }

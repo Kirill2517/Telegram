@@ -7,6 +7,9 @@ namespace HhLib.Share.Models
 {
     public abstract class HhObject
     {
-        public abstract bool IsValid();
+        public virtual bool IsValid()
+        {
+            return true;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace HhLib.Employer.model
         {
             if (new List<object> { name }.Contains(null))
                 return false;
-            return DataUser is null || DataUser.IsValid();
+            return DataUserIsValid;
         }
     }
 }

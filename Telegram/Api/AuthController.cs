@@ -34,7 +34,8 @@ namespace Telegram.Api
         public async Task<IActionResult> GetPhone()
         {
             AuthManager applicantModelController = new AuthManager(this.GetUserIdentity());
-            return Ok(await applicantModelController.GetGuidAsync());
+            HhLib.DataUser.model.DataUser value = await applicantModelController.GetGuidAsync();
+            return base.Ok(value);
         }
         [AllowAnonymous]
         [HttpPost]
@@ -64,7 +65,8 @@ namespace Telegram.Api
                 return Ok(await controller.SignUpUnauthorizedAsync(model));
             }
 
-            return Ok(await controller.SignUpSecondAccount(this.GetUserIdentity(), model.User));
+            return BadRequest();
+            //return Ok(await controller.SignUpSecondAccount(this.GetUserIdentity(), model.User));
         }
     }
 }

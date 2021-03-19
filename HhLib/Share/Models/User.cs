@@ -10,7 +10,9 @@ namespace HhLib.Share.Models
 
         public override bool IsValid()
         {
-            return DataUser.IsValid();
+            return DataUserIsValid;
         }
+
+        protected bool DataUserIsValid => DataUser != null && DataUser.IsValid();
     }
 }
