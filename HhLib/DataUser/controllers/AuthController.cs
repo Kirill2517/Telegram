@@ -12,7 +12,7 @@ namespace HhLib.DataUser.controllers
 {
     public class AuthController : AuthControllerBase
     {
-        AuthDataBaseController bdcontroller = new AuthDataBaseController();
+        AuthDataController bdcontroller = new AuthDataController();
         public override async Task<string> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
             if (!model.IsValid())
@@ -23,6 +23,10 @@ namespace HhLib.DataUser.controllers
                 return JsonConvert.SerializeObject(new { error = "Uniq dataUser field already exists." });
             if (!(await bdcontroller.FieldsUniqAsync(model.User)))
                 return JsonConvert.SerializeObject(new { error = "Uniq account field already exists." });
+            if (!(await bdcontroller.IndexesExist(model.User)))
+                return JsonConvert.SerializeObject(new { error = "Some values doesn't exist." });
+            if (!(await bdcontroller.IndexesExist(model.User.DataUser)))
+                return JsonConvert.SerializeObject(new { error = "Some values doesn't exist." });
 
             await bdcontroller.InsertDataUserAsync(model.User.DataUser, model.password);
             await bdcontroller.InsertUserAsync(model.User, model.User.DataUser.email);
