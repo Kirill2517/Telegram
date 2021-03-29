@@ -36,15 +36,7 @@ namespace HhLib.Share.Models
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.email),
-<<<<<<< HEAD
-<<<<<<< .merge_file_a20088
                     new Claim(ClaimTypes.Role, user.accountType.ToString()),
-=======
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.accountType.ToString()),
->>>>>>> .merge_file_a17796
-=======
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.accountType.ToString()),
->>>>>>> 72218f33386eaf737715efd4fc25e8af79597616
                     new Claim("guid", Guid.NewGuid().ToString())
                 };
             ClaimsIdentity claimsIdentity =
