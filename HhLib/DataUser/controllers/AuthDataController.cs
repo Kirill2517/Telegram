@@ -10,26 +10,15 @@ using HhLib.Applicant.model;
 
 namespace HhLib.DataUser.controllers
 {
-    public class AuthDataBaseController : DataBaseController
+    public class AuthDataController : DataBaseController
     {
-        DataUserImage DataUserImage = new DataUserImage();
-        ApplicantImage ApplicantImage = new ApplicantImage();
-        EmployerImage EmployerImage = new EmployerImage();
-        /// <summary>
-        /// значение поля существует в бд
-        /// </summary>
-        private async Task<bool> FieldExists<T>(string column, object key, T bd) where T : BDImageBase
-        {
-            return await this.QueryCommandSingleAsync<bool>($"SELECT EXISTS(SELECT * FROM {bd.Title} WHERE {column} = '{key}')");
-        }
-
         public async Task<bool> EmailExistsAsync<T>(T user, string identity) where T : User
         {
-            if (await FieldExists("email", identity, DataUserImage))
+            if (await FieldExists("email", identity, new DataUserImage().Title))
             {
                 int id = await GetUserId(identity);
                 var targetImage = GetImageByType(user);
-                return await FieldExists(targetImage.IdFieldName, id, targetImage);
+                return await FieldExists(targetImage.IdFieldName, id, targetImage.Title);
             }
             return false;
             //var command = $"SELECT idApplicant FROM Applicant inner join DataUser on DataUser.id = Applicant.idApplicant where DataUser.email = '{email}'";
@@ -42,7 +31,7 @@ namespace HhLib.DataUser.controllers
             var targetImage = GetImageByType(model);
             foreach (var item in targetImage.UniqFields(model))
             {
-                if (await FieldExists(item.Key, item.Value, targetImage))
+                if (await FieldExists(item.Key, item.Value, targetImage.Title))
                     return false;
             }
             return true;
@@ -50,7 +39,8 @@ namespace HhLib.DataUser.controllers
 
         public async Task<bool> InsertDataUserAsync(model.DataUser dataUser, string password)
         {
-            var command = DataUserImage.InsertCommand + $"VALUES ({DataUserImage.FieldsName}, '{password}');";
+            DataUserImage dataUserImage = new DataUserImage();
+            var command = dataUserImage.InsertCommand + $"VALUES ({dataUserImage.FieldsName}, '{password}');";
             return await this.InsertCommand(command, dataUser) > 0;
         }
 
@@ -61,20 +51,27 @@ namespace HhLib.DataUser.controllers
             return await this.InsertCommand(command, user) > 0;
         }
 
-        private BDImageBase GetImageByType<T>(T @object) where T : HhObject
+        public async Task<bool> CheckCorrectDataUserAsync(SignInModel user)
+        {
+            return await QueryCommandSingleAsync<bool>($"SELECT EXISTS(SELECT * FROM {new DataUserImage().Title} WHERE email = '{user.email}' and password = '{user.password}')");
+        }
+
+        private protected override BDImageBase GetImageByType<T>(T @object)
         {
             if (@object.GetType() == typeof(Applicant.model.Applicant))
-                return ApplicantImage;
+                return new ApplicantImage();
             if (@object.GetType() == typeof(Employer.model.Employer))
-                return EmployerImage;
+                return new EmployerImage();
             if (@object.GetType() == typeof(DataUser.model.DataUser))
-                return DataUserImage;
+                return new DataUserImage();
             return null;
         }
 
-        public async Task<bool> CheckCorrectDataUserAsync(SignInModel user)
+        public async Task<AccountType> GetAccountType(string email)
         {
-            return await QueryCommandSingleAsync<bool>($"SELECT EXISTS(SELECT * FROM {DataUserImage.Title} WHERE email = '{user.email}' and password = '{user.password}')");
+            var image = new ApplicantImage();
+            var applicantExists = await this.FieldExists(image.IdFieldName, await GetUserId(email), image.Title);
+            return applicantExists ? AccountType.applicant : AccountType.employer;
         }
     }
 }
