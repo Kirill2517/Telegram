@@ -1,5 +1,6 @@
 ﻿using System;
 
+<<<<<<< HEAD
 <<<<<<< .merge_file_a01512
 namespace ConsoleApplication4
 {
@@ -40,6 +41,8 @@ namespace ConsoleApplication4
             return typeof(T)value;
         }
 =======
+=======
+>>>>>>> 72218f33386eaf737715efd4fc25e8af79597616
 [Flags]
 enum MyEnum
 {
@@ -59,6 +62,9 @@ class Program
     static void Main(string[] args)
     {
         System.Console.WriteLine(Enum.Parse(typeof(MyEnum), "appl"));
+<<<<<<< HEAD
 >>>>>>> .merge_file_a18668
+=======
+>>>>>>> 72218f33386eaf737715efd4fc25e8af79597616
     }
 }
