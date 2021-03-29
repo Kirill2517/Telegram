@@ -12,6 +12,10 @@ namespace HhLib.DataUser.controllers
 {
     public class AuthController : AuthControllerBase
     {
+<<<<<<< .merge_file_a18400
+=======
+        AuthDataController bdcontroller = new AuthDataController();
+>>>>>>> .merge_file_a08856
         public override async Task<string> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
             if (!model.IsValid())

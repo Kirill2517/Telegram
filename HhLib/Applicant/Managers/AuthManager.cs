@@ -24,5 +24,10 @@ namespace HhLib.Applicant.Managers
         {
             throw new NotImplementedException();
         }
+
+        private protected override BDImageBase GetImageByType<T>(T @object)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

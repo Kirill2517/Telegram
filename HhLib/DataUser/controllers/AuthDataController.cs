@@ -66,6 +66,7 @@ namespace HhLib.DataUser.controllers
                 return new DataUserImage();
             return null;
         }
+<<<<<<< .merge_file_a09688
 
         public async Task<AccountType> GetAccountType(string email)
         {
@@ -73,5 +74,7 @@ namespace HhLib.DataUser.controllers
             var applicantExists = await this.FieldExists(image.IdFieldName, await GetUserId(email), image.Title);
             return applicantExists ? AccountType.applicant : AccountType.employer;
         }
+=======
+>>>>>>> .merge_file_a13192
     }
 }
