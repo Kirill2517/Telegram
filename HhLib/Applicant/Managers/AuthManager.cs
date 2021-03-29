@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace HhLib.Applicant.Managers
 {
-    public class AuthManager : DataBaseController
+    public class ApplicantManager : DataBaseController
     {
         public string Email { get; }
-        public AuthManager(string email)
+        public ApplicantManager(string email)
         {
             Email = email;
         }
 
-        public async Task<DataUser.model.DataUser> GetGuidAsync()
+        public async Task<DataUser.model.DataUser> GetDataAsync()
         {
-            return await this.QueryCommandSingleAsync<DataUser.model.DataUser>($"SELECT DataUser.* FROM Applicant inner join DataUser on Applicant.idApplicant = DataUser.id where Applicant.idApplicant = {await this.GetUserId(Email)}; ");
+            return await this.QueryCommandSingleAsync<DataUser.model.DataUser>($"SELECT DataUser.* FROM Applicant inner join DataUser on Applicant.idApplicant = DataUser.id where Applicant.idApplicant = '{await this.GetUserId(Email)}'; ");
         }
 
         private protected override BDImageBase GetImageByType<T>(T @object)

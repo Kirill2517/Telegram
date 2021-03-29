@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Api.Share.Models;
+using Telegram.Utils.Controller;
 
 namespace Telegram.Api.Share.Employer
 {

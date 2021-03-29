@@ -12,7 +12,6 @@ namespace HhLib.DataUser.controllers
 {
     public class AuthController : AuthControllerBase
     {
-        AuthDataController bdcontroller = new AuthDataController();
         public override async Task<string> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
             if (!model.IsValid())

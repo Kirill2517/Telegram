@@ -10,10 +10,13 @@ namespace Telegram.Api.Share.Models
     public abstract class Layer : ControllerBase
     {
         protected abstract string Role { get; }
-        protected virtual bool CheckRole(string role) 
+        protected virtual bool CheckRole() 
         {
             if (this.UserIsAuthorized())
+            {
+                var role = this.GetRole();
                 return role.Equals(this.Role);
+            }
             return false;
         }
     }

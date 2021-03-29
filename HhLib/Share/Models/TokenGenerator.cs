@@ -36,7 +36,7 @@ namespace HhLib.Share.Models
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.email),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.accountType.ToString()),
+                    new Claim(ClaimTypes.Role, user.accountType.ToString()),
                     new Claim("guid", Guid.NewGuid().ToString())
                 };
             ClaimsIdentity claimsIdentity =
