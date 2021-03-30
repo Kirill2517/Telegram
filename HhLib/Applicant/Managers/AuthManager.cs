@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-﻿using HhLib.Applicant.model;
 using HhLib.DataBaseImage;
-using HhLib.Shared.models;
-=======
-﻿using HhLib.DataBaseImage;
 using HhLib.Share.models;
->>>>>>> 5c88430d84448a4088469be952603b6091be5ae5
 using System;
 using System.Collections.Generic;
 using System.Text;

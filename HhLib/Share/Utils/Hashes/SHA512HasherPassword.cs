@@ -12,9 +12,8 @@ namespace HhLib.Share.Utils.Hashes
     {
         public string HashPassword(string password)
         {
-            //string first = GetHash(password).Result;
-            //return GetHash(first + first.Substring(0, first.Length / 2)).Result;
-            return password;
+            string first = GetHash(password).Result;
+            return GetHash(first + first.Substring(0, first.Length / 2)).Result;
         }
 
         public PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
