@@ -1,4 +1,5 @@
-﻿using HhLib.DataBaseImage;
+﻿using HhLib.Applicant.model;
+using HhLib.DataBaseImage;
 using HhLib.Shared.models;
 using System;
 using System.Collections.Generic;
