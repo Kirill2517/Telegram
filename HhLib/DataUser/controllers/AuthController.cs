@@ -12,20 +12,20 @@ namespace HhLib.DataUser.controllers
 {
     public class AuthController : AuthControllerBase
     {
-        public override async Task<string> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
+        public override async Task<object> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
             if (!model.IsValid())
-                return JsonConvert.SerializeObject(new { error = "Model is not valid." });
+                return new { error = "Model is not valid." };
             if (await bdcontroller.EmailExistsAsync(model.User, model.User.DataUser.email))
-                return JsonConvert.SerializeObject(new { error = "Email already exists." });
+                return new { error = "Email already exists." };
             if (!(await bdcontroller.FieldsUniqAsync(model.User.DataUser)))
-                return JsonConvert.SerializeObject(new { error = "Uniq dataUser field already exists." });
+                return new { error = "Uniq dataUser field already exists." };
             if (!(await bdcontroller.FieldsUniqAsync(model.User)))
-                return JsonConvert.SerializeObject(new { error = "Uniq account field already exists." });
+                return new { error = "Uniq account field already exists." };
             if (!(await bdcontroller.IndexesExist(model.User)))
-                return JsonConvert.SerializeObject(new { error = "Some values doesn't exist." });
+                return new { error = "Some values don't exist." };
             if (!(await bdcontroller.IndexesExist(model.User.DataUser)))
-                return JsonConvert.SerializeObject(new { error = "Some values doesn't exist." });
+                return new { error = "Some values don't exist." };
 
             await bdcontroller.InsertDataUserAsync(model.User.DataUser, model.password);
             await bdcontroller.InsertUserAsync(model.User, model.User.DataUser.email);

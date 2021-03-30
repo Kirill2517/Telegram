@@ -29,16 +29,6 @@ namespace Telegram.Api
             return Ok(await controller.AuthorizeAsync(identityUser));
         }
 
-        [HttpPost]
-        [Route("phone")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetPhone()
-        {
-            //AuthManager applicantModelController = new AuthManager(this.GetUserIdentity());
-            //HhLib.DataUser.model.DataUser value = await applicantModelController.GetGuidAsync();
-            //return base.Ok(value);
-            return Ok(new { desiredWorkLocationArea = "bvdbcvbvcb" });
-        }
         [AllowAnonymous]
         [HttpPost]
         [Route("signup/applicant")]

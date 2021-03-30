@@ -11,7 +11,7 @@ namespace HhLib.Share.Models
 {
     public static class TokenGenerator
     {
-        public static string GetToken(SignInModel user)
+        public static object GetToken(SignInModel user)
         {
             var claimsidentity = GetClaimsIdentity(user);
             var now = DateTime.UtcNow;
@@ -29,7 +29,7 @@ namespace HhLib.Share.Models
                 username = claimsidentity.Name
             };
 
-            return JsonConvert.SerializeObject(response);
+            return response;
         }
         private static ClaimsIdentity GetClaimsIdentity(SignInModel user)
         {
