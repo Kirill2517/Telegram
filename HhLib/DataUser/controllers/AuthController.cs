@@ -29,8 +29,8 @@ namespace HhLib.DataUser.controllers
 
             await bdcontroller.InsertDataUserAsync(model.User.DataUser, model.password);
             await bdcontroller.InsertUserAsync(model.User, model.User.DataUser.email);
-
-            return TokenGenerator.GetToken(new SignInModel() { email = model.User.DataUser.email, password = model.password });
+            var type = await bdcontroller.GetAccountType(model.User.DataUser.email);
+            return TokenGenerator.GetToken(new SignInModel() { email = model.User.DataUser.email, password = model.password, accountType = type });
         }
 
         protected override async Task<bool> AuthAsync(SignInModel model)
