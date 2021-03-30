@@ -6,6 +6,7 @@ using HhLib.Static;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace HhLib.DataUser.controllers
     {
         public override async Task<object> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
-            if (!(await model.ValidPassword()))
+            if (!await model.ValidPassword())
                 return new { errors = model.Errors };
             if (!model.IsValid())
                 return new { error = "Model is not valid." };
@@ -30,14 +31,15 @@ namespace HhLib.DataUser.controllers
             if (!(await bdcontroller.IndexesExist(model.User.DataUser)))
                 return new { error = "Some values don't exist." };
 
-            await bdcontroller.InsertDataUserAsync(model.User.DataUser, model.password);
+            await bdcontroller.InsertDataUserAsync(model.User.DataUser, Settings.PasswordHasher.HashPassword(model.password));
             await bdcontroller.InsertUserAsync(model.User, model.User.DataUser.email);
             var type = await bdcontroller.GetAccountType(model.User.DataUser.email);
-            return TokenGenerator.GetToken(new SignInModel() { email = model.User.DataUser.email, password = model.password, accountType = type });
+            return TokenGenerator.GetToken(new SignInModel() { email = model.User.DataUser.email, accountType = type });
         }
 
         protected override async Task<bool> AuthAsync(SignInModel model)
         {
+            model.password = Settings.PasswordHasher.HashPassword(model.password);
             return await bdcontroller.CheckCorrectDataUserAsync(model);
         }
 
