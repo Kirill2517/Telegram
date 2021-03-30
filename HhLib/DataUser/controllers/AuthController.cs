@@ -2,6 +2,7 @@
 using HhLib.DataUser.model;
 using HhLib.Share.Controllers.Base;
 using HhLib.Share.Models;
+using HhLib.Static;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace HhLib.DataUser.controllers
     {
         public override async Task<object> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
+            if (!(await model.ValidPassword()))
+                return new { errors = model.Errors };
             if (!model.IsValid())
                 return new { error = "Model is not valid." };
             if (await bdcontroller.EmailExistsAsync(model.User, model.User.DataUser.email))

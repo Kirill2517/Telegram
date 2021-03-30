@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using HhLib.Share.Utils.Validator;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
@@ -18,6 +19,14 @@ namespace HhLib.Static
 #endif
             return (JObject)JObject.Parse(File.ReadAllText("settings.json"))[configuration];
         }
+
+        public static PasswordValidator PasswordValidator => new()
+        {
+            RequireDigit = true,
+            RequiredLength = 8,
+            RequireUppercase = true,
+            RequireLowercase = true
+        };
 
         public static string ISSUER => (string)Getjson()["issuer"]; // издатель токена
         public static string AUDIENCE = (string)Getjson()["audience"]; // потребитель токена

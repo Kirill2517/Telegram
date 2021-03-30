@@ -15,12 +15,10 @@ using HhLib.Employer.model;
 
 namespace Telegram.Api
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        [AllowAnonymous]
         [HttpPost]
         [Route("signin")]
         public async Task<IActionResult> SignIn(SignInModel identityUser)
@@ -29,7 +27,6 @@ namespace Telegram.Api
             return Ok(await controller.AuthorizeAsync(identityUser));
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [Route("signup/applicant")]
         [Route("signup/appl")]
@@ -38,7 +35,6 @@ namespace Telegram.Api
             return await SignUpIdentity(model);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [Route("signup/employer")]
         [Route("signup/empl")]
