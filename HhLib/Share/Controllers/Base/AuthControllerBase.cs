@@ -15,21 +15,21 @@ namespace HhLib.Share.Controllers.Base
         /// регистрация
         /// </summary>
         /// <returns></returns>
-        public abstract Task<string> SignUpUnauthorizedAsync<T>(SignUpModel<T> signUpModel) where T : User;
+        public abstract Task<object> SignUpUnauthorizedAsync<T>(SignUpModel<T> signUpModel) where T : User;
         /// <summary>
         /// возврат токена при удачной аунтефикации
         /// </summary>
         /// <returns></returns>
-        public virtual async Task<string> AuthorizeAsync(SignInModel user)
+        public virtual async Task<object> AuthorizeAsync(SignInModel user)
         {
             if (!user.IsValid())
-                return JsonConvert.SerializeObject(new { error = "Model is not valid." });
+                return new { error = "Model is not valid." };
             if (await AuthAsync(user))
             {
                 user.accountType = await bdcontroller.GetAccountType(user.email);
                 return TokenGenerator.GetToken(user);
             }
-            else return JsonConvert.SerializeObject(new { error = "Invalid username or password." });
+            else return new { error = "Invalid username or password." };
         }
         /// <summary>
         /// проверка логина, пароля и существования пользователя

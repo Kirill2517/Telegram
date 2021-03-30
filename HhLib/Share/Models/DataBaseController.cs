@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using HhLib.DataBaseImage;
 using HhLib.Share.Models;
 
-namespace HhLib.Shared.models
+namespace HhLib.Share.models
 {
     public abstract class DataBaseController : IDisposable
     {

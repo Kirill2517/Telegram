@@ -15,12 +15,10 @@ using HhLib.Employer.model;
 
 namespace Telegram.Api
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        [AllowAnonymous]
         [HttpPost]
         [Route("signin")]
         public async Task<IActionResult> SignIn(SignInModel identityUser)
@@ -30,17 +28,6 @@ namespace Telegram.Api
         }
 
         [HttpPost]
-        [Route("phone")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetPhone()
-        {
-            //AuthManager applicantModelController = new AuthManager(this.GetUserIdentity());
-            //HhLib.DataUser.model.DataUser value = await applicantModelController.GetGuidAsync();
-            //return base.Ok(value);
-            return Ok(new { desiredWorkLocationArea = "bvdbcvbvcb" });
-        }
-        [AllowAnonymous]
-        [HttpPost]
         [Route("signup/applicant")]
         [Route("signup/appl")]
         public async Task<IActionResult> SignUp(SignUpModel<Applicant> model)
@@ -48,7 +35,6 @@ namespace Telegram.Api
             return await SignUpIdentity(model);
         }
 
-        [AllowAnonymous]
         [HttpPost]
         [Route("signup/employer")]
         [Route("signup/empl")]

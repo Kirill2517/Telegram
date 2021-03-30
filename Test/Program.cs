@@ -1,42 +1,44 @@
-﻿using System;
+using Microsoft.AspNet.Identity;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
-namespace ConsoleApplication4
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        class Per
-        { 
-            public string key { get; set; }
-        }
-        static void Main(string[] args)
-        {
-            var a = new { key = "str" };
-            var t = a.GetType();
-
-        }
-
-        private static void TestMethod(Object x)
-        {
-            // This is a dummy value, just to get 'a' to be of the right type
-            var a = new { Id = 0, Name = "" };
-            a = Cast(a, x);
-            Console.Out.WriteLine(a.Id + ": " + a.Name);
-        }
-
-        private static T Cast<T>(T typeHolder, Object x)
-        {
-            // typeHolder above is just for compiler magic
-            // to infer the type to cast x to
-            return (T)x;
-        }
+        string value = new SHA512HasherPassword().HashPassword("password");
+        Console.WriteLine(value);
+        System.Console.WriteLine(new SHA512HasherPassword().VerifyHashedPassword(value, "password"));
     }
 
-    public static class Ext {
-        public static T CastTo<T>(this Object value, T targetType)
+    public class SHA512HasherPassword : IPasswordHasher
+    {
+        public string HashPassword(string password)
         {
-            // targetType above is just for compiler magic
-            // to infer the type to cast value to
-            return typeof(T)value;
+            string first = SHA512(password);
+            string input = first + first.Substring(0, first.Length / 2);
+            return SHA512(input);
+        }
+
+        public PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
+        {
+            if (HashPassword(providedPassword).Equals(hashedPassword))
+                return PasswordVerificationResult.Success;
+            return PasswordVerificationResult.Failed;
+        }
+
+        private static string SHA512(string input)
+        {
+            var bytes = System.Text.Encoding.UTF8.GetBytes(input);
+            using (var hash = System.Security.Cryptography.SHA512.Create())
+            {
+                var hashedInputBytes = hash.ComputeHash(bytes);
+                var hashedInputStringBuilder = new System.Text.StringBuilder(128);
+                foreach (var b in hashedInputBytes)
+                    hashedInputStringBuilder.Append(b.ToString("X2"));
+                return hashedInputStringBuilder.ToString();
+            }
         }
     }
 }

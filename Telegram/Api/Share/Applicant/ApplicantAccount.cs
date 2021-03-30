@@ -21,12 +21,11 @@ namespace Telegram.Api.Share.Applicant
         [Route("getdata")]
         public async Task<IActionResult> GetAccountData()
         {
-            if (CheckRole())
+            return await BaseFunction(async delegate ()
             {
                 ApplicantManager applicantManager = new(this.GetUserIdentity());
                 return Ok(await applicantManager.GetDataAsync());
-            }
-            return BadRequest(new { error = "Неверный тип авторизации" });
+            });
         }
     }
 }
