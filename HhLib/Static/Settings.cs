@@ -25,7 +25,7 @@ namespace HhLib.Static
         public static PasswordValidatorHH PasswordValidator => Getjson()["PasswordValidator"].ToObject<PasswordValidatorHH>();
 
         public static IPasswordHasher PasswordHasher => new HhLib.Share.Utils.Hashes.HasherPassword();
-
+        public const string SqlFolder = "sqls";
         public static string ISSUER => (string)Getjson()["issuer"]; // издатель токена
         public static string AUDIENCE = (string)Getjson()["audience"]; // потребитель токена
         static readonly string KEY = (string)Getjson()["key"];   // ключ для шифрации

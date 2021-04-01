@@ -31,4 +31,13 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="sqls\Applicant\GetApplicantData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sqls\Applicant\GetDataUserByEmail.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

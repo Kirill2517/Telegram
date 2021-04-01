@@ -15,7 +15,7 @@ namespace HhLib.Share.Models
         public T User { get; set; }
         public string password { get; set; }
         [JsonIgnore]
-        public List<string> Errors { get; set; } = new List<string>();
+        public List<ErrorModel> Errors { get; set; } = new List<ErrorModel>();
 
         public override bool IsValid()
         {
@@ -29,9 +29,9 @@ namespace HhLib.Share.Models
         public async Task<bool> ValidPassword()
         {
             IdentityResult identityResult = await Settings.PasswordValidator.ValidateAsync(password);
-            if (!identityResult.Succeeded)
-                Errors = new List<string>(identityResult.Errors);
-            return identityResult.Succeeded;
+            if (!identityResult.Successed)
+                Errors = new List<ErrorModel>(identityResult.Errors);
+            return identityResult.Successed;
         }
     }
 }

@@ -1,17 +1,19 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HhLib.Share.Models;
 using System.Threading.Tasks;
 
 namespace HhLib.Share.Utils.Validator
 {
-    public class PasswordValidator : Microsoft.AspNet.Identity.PasswordValidator
+    public class PasswordValidator : IIdentityValidator<string>
     {
-        public override Task<IdentityResult> ValidateAsync(string item)
+        public bool RequireUppercase { get; set; }
+        public bool RequireNonLetterOrDigit { get; set; }
+        public bool RequireLowercase { get; set; }
+        public uint RequiredLength { get; set; }
+        public bool RequireDigit { get; set; }
+        public async Task<IdentityResult> ValidateAsync(string item)
         {
-            return base.ValidateAsync(item);
+            var ir = new IdentityResult() { Successed = true };
+            return ir;
         }
     }
 }
