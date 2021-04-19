@@ -40,7 +40,9 @@ namespace HhLib.DataUser.controllers
 
         protected override async Task<bool> AuthAsync(SignInModel model)
         {
-            model.password = Settings.PasswordHasher.HashPassword(model.password);
+#if RELEASE
+            model.password = Settings.PasswordHasher.HashPassword(model.password); 
+#endif
             return await bdcontroller.CheckCorrectDataUserAsync(model);
         }
 

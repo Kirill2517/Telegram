@@ -22,7 +22,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await BaseFunction(async delegate ()
             {
-                ApplicantManager applicantManager = new();
+                ApplicanManagerAccount applicantManager = new();
                 return Ok(await applicantManager.GetDataUserAsync(this.GetUserIdentity()));
             });
         }
@@ -33,7 +33,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await base.BaseFunction(async delegate ()
             {
-                ApplicantManager applicantManager = new();
+                ApplicanManagerAccount applicantManager = new();
                 ApplicantView applicant = await applicantManager.GetApplicantDataAsync(this.GetUserIdentity());
                 return base.Ok(new { applicant.education, applicant.desiredWorkLocationArea, applicant.gender, applicant.typeEmployment });
             });
@@ -45,7 +45,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await base.BaseFunction(async delegate ()
             {
-                ApplicantManager applicantManager = new();
+                ApplicanManagerAccount applicantManager = new();
                 return Ok(await applicantManager.GetFullDataAsync(this.GetUserIdentity()));
             });
         }

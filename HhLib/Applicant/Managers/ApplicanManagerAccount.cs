@@ -1,26 +1,21 @@
-using HhLib.DataBaseImage;
-using HhLib.Share.Interfaces;
-using HhLib.Share.models;
-using HhLib.Share.Models;
-using HhLib.Static;
+﻿using HhLib.DataBaseImage;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace HhLib.Applicant.Managers
 {
-    public class ApplicantManager : DataBaseController
+    public class ApplicanManagerAccount : ApplicantManagerBase
     {
-        private const string sqlPathMain = Settings.SqlFolder + "/Applicant";
-
+        private readonly string sqlPathMain = ApplicantManagerBase.sqlPathMain + "/Account";
         public async Task<DataUser.model.DataUser> GetDataUserAsync(string email)
         {
             return await this.QueryCommandSingleAsync<DataUser.model.DataUser>(string.Format(File.ReadAllText($"{sqlPathMain}/GetDataUserByEmail.sql"), await this.GetUserId(email)));
         }
-        
+
         public async Task<Applicant.model.ApplicantView> GetApplicantDataAsync(string email)
         {
             return await this.QueryCommandSingleAsync<Applicant.model.ApplicantView>(string.Format(File.ReadAllText($"{sqlPathMain}/GetApplicantData.sql"), await this.GetUserId(email)));

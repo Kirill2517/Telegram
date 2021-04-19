@@ -26,17 +26,6 @@ namespace HhLib.DataUser.controllers
             //return res;
         }
 
-        public async Task<bool> FieldsUniqAsync<T>(T model) where T : HhObject
-        {
-            var targetImage = GetImageByType(model);
-            foreach (var item in targetImage.UniqFields(model))
-            {
-                if (await FieldExists(item.Key, item.Value, targetImage.Title))
-                    return false;
-            }
-            return true;
-        }
-
         public async Task<bool> InsertDataUserAsync(model.DataUser dataUser, string password)
         {
             DataUserImage dataUserImage = new DataUserImage();
