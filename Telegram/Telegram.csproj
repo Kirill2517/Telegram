@@ -11,14 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="sqls\Applicant\Resume\GetAllShortResumeByApplicantId.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="sqls\Applicant\Resume\GetAllShortResumeByApplicantId.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
 

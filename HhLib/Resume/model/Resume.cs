@@ -17,5 +17,12 @@ namespace HhLib.Resume.model
         public string description { get; set; }
         public string title { get; set; }
         public DateTime created { get; set; }
+
+        public override bool IsValid()
+        {
+            if (new List<object> { Speciality, title, workExperience }.Contains(null))
+                return false;
+            return true;
+        }
     }
 }

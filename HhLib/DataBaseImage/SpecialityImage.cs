@@ -11,7 +11,7 @@ namespace HhLib.DataBaseImage
     {
         public override string Title => "Speciality";
         public override string IdFieldName => "idSpeciality";
-        public override string InsertCommand => $"INSERT INTO {Title} ({IdFieldName}, name)";
+        public override string InsertCommand => $"INSERT INTO {Title} (name)";
         public override string FieldsName => "@name";
 
         public override Dictionary<string, object> UniqFields(HhObject hhObject)

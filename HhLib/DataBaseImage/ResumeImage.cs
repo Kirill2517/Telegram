@@ -10,10 +10,10 @@ namespace HhLib.DataBaseImage
 {
     internal class ResumeImage : BDImageBase
     {
-        public override string Title => "Title";
+        public override string Title => "Resume";
         public override string IdFieldName => "idResume";
-        public override string InsertCommand => $"INSERT INTO {Title} ({IdFieldName}, idApplicant, idSpeciality, title, created, workExperience, desiredSalary, description)";
-        public override string FieldsName => "@idApplicant, @idSpeciality, @title, @created, @workExperience, @desiredSalary, @description";
+        public override string InsertCommand => $"INSERT INTO {Title} (idApplicant, idSpeciality, created, title, workExperience, desiredSalary, description)";
+        public override string FieldsName => "@title, @workExperience, @desiredSalary, @description";
 
         public override Dictionary<string, object> UniqFields(HhObject hhObject)
         {

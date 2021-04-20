@@ -20,13 +20,13 @@ namespace HhLib.Speciality.Managers
             if (await FieldsUniqAsync(speciality))
                 await InsertSpecialityAsync(speciality);
             var image = GetImageByType(speciality);
-            return await QueryCommandSingleAsync<int>($"select {image.IdFieldName} from {image.Title}");
+            return await QueryCommandSingleAsync<int>($"select {image.IdFieldName} from {image.Title} where name = '{name}'");
         }
 
         private async Task<bool> InsertSpecialityAsync(Speciality.Model.Speciality speciality)
         {
             BDImageBase targetImage = GetImageByType(speciality);
-            var command = $"{targetImage.InsertCommand} VALUES {targetImage.FieldsName});";
+            var command = $"{targetImage.InsertCommand} VALUES ({targetImage.FieldsName});";
             return await this.InsertCommand(command, speciality) > 0;
         }
 

@@ -31,10 +31,17 @@ namespace HhLib.Applicant.Managers
 
         public async Task<object> CreateResume(Resume.model.Resume resume, string identity)
         {
+            if (!resume.IsValid())
+                return new { error = "Model is not valid." };
+
+
             resume.Owner = identity;
             var image = GetImageByType(resume);
-            var sql = $"{image.InsertCommand} values {GetUserId(identity)}, {new Speciality.Managers.SpecialityManager().GetIdSpeciality(resume.Speciality)}, {resume.title}, {DateTime.Now}, {resume.workExperience}, {resume.desiredSalary}, {resume.description}";
-            return await this.InsertCommand(sql, resume) > 0;
+            int idSpeciality = await new Speciality.Managers.SpecialityManager().GetIdSpeciality(resume.Speciality);
+            int idApplicant = await GetUserId(identity);
+            var sql = $"{image.InsertCommand} values ({idApplicant}, {idSpeciality}, curtime(), {image.FieldsName});";
+            await this.InsertCommand(sql, resume);
+            return new { result = "success" };
         }
 
         private protected override BDImageBase GetImageByType<T>(T @object)
