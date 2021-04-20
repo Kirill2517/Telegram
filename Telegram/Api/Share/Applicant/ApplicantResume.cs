@@ -1,10 +1,11 @@
 ﻿using HhLib.Applicant.Managers;
 using HhLib.Resume.model;
+using HhLib.Share.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Telegram.Utils.Controller;
 
@@ -15,19 +16,25 @@ namespace Telegram.Api.Share.Applicant
     [Route("api/[controller]")]
     public class ApplicantResume : ApplicantBase
     {
+        //Варианты использования метода
+        //без параметров - выдаст все свои резюме
+        //с параметрами start и count - в определенном диапазоне
+        //с параметром count - резюме от 0 до count
         [HttpPost]
         [Route("getallresume")]
-        public async Task<IActionResult> GetAllResumeOfMine()
+        public async Task<IActionResult> GetAllResumeOfMine(int start, int count)
         {
             return await BaseFunction(async delegate ()
             {
+                Range range = Range.FactorRange(start, count);
                 ApplicantManagerResume applicantManager = new();
-                return Ok(await applicantManager.GetAllResumesAsyncByApplicantEmail(this.GetUserIdentity()));
+                return Ok(await applicantManager.GetAllResumesAsyncByApplicantEmail(this.GetUserIdentity(), range));
             });
         }
 
         [HttpPost]
-        [Route("[action]/{id:int}")]
+        [Route("getresume/{id:int}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetResumeById(int id)
         {
             ApplicantManagerResume applicantManager = new();

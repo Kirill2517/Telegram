@@ -1,4 +1,6 @@
 ﻿using HhLib.DataBaseImage;
+using HhLib.Share.Models;
+using HhLib.Share.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,28 +14,38 @@ namespace HhLib.Applicant.Managers
     {
         private readonly string sqlPathMain = ApplicantManagerBase.sqlPathMain + "/Resume";
 
-        public async Task<IEnumerable<Resume.model.Resume>> GetAllResumesAsyncByApplicantEmail(string email)
+        //range == null     all
+        //range is not valid        error
+        //range is ok       range
+        public async Task<object> GetAllResumesAsyncByApplicantEmail(string email, Share.Models.Range range = null)
         {
-            string sql = string.Format(File.ReadAllText($"{sqlPathMain}/GetAllResumeByApplicantEmail.sql"), email);
-            return await this.QueryCommandIEnumerable<Resume.model.Resume>(sql);
+            if (range != null && !range.IsValid())
+                return new { error = "Range is not valid." };
+
+            string sql = range is null
+                ? $"{sqlPathMain}/GetAllResumeByApplicantEmail.sql".ReadStringFromatFromFile(email)
+                : $"{sqlPathMain}/SelectRangeOfMyResumeByEmail.sql".ReadStringFromatFromFile(email, range.start, range.count);
+
+            IEnumerable<Resume.model.Resume> resumes = await this.QueryCommandIEnumerable<Resume.model.Resume>(sql);
+            return new { count = resumes.Count(), resumes };
         }
 
-        public async Task<IEnumerable<Resume.model.Resume>> GetAllResumesAsyncByApplicantId(int id)
+        public async Task<object> GetAllResumesAsyncByApplicantId(int id)
         {
-            string sql = string.Format(File.ReadAllText($"{sqlPathMain}/GetAllResumeByApplicantId.sql"), id);
-            return await this.QueryCommandIEnumerable<Resume.model.Resume>(sql);
+            string sql = $"{sqlPathMain}/GetAllResumeByApplicantId.sql".ReadStringFromatFromFile(id);
+            IEnumerable<Resume.model.Resume> resumes = await this.QueryCommandIEnumerable<Resume.model.Resume>(sql);
+            return new { count = resumes.Count(), resumes };
         }
 
         public async Task<Resume.model.Resume> GetResumeById(int id)
-        { 
-            return await this.QueryCommandSingleOrDefaultAsync<Resume.model.Resume>(string.Format(File.ReadAllText($"{sqlPathMain}/GetResumeById.sql"), id));
+        {
+            return await this.QueryCommandSingleOrDefaultAsync<Resume.model.Resume>($"{sqlPathMain}/GetResumeById.sql".ReadStringFromatFromFile(id));
         }
 
         public async Task<object> CreateResume(Resume.model.Resume resume, string identity)
         {
             if (!resume.IsValid())
                 return new { error = "Model is not valid." };
-
 
             resume.Owner = identity;
             var image = GetImageByType(resume);

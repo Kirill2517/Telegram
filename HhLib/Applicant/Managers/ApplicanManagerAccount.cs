@@ -1,4 +1,5 @@
 ﻿using HhLib.DataBaseImage;
+using HhLib.Share.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,12 +14,12 @@ namespace HhLib.Applicant.Managers
         private readonly string sqlPathMain = ApplicantManagerBase.sqlPathMain + "/Account";
         public async Task<DataUser.model.DataUser> GetDataUserAsync(string email)
         {
-            return await this.QueryCommandSingleAsync<DataUser.model.DataUser>(string.Format(File.ReadAllText($"{sqlPathMain}/GetDataUserByEmail.sql"), await this.GetUserId(email)));
+            return await this.QueryCommandSingleAsync<DataUser.model.DataUser>($"{sqlPathMain}/GetDataUserByEmail.sql".ReadStringFromatFromFile(await this.GetUserId(email)));
         }
 
         public async Task<Applicant.model.ApplicantView> GetApplicantDataAsync(string email)
         {
-            return await this.QueryCommandSingleAsync<Applicant.model.ApplicantView>(string.Format(File.ReadAllText($"{sqlPathMain}/GetApplicantData.sql"), await this.GetUserId(email)));
+            return await this.QueryCommandSingleAsync<Applicant.model.ApplicantView>($"{sqlPathMain}/GetApplicantData.sql".ReadStringFromatFromFile(await this.GetUserId(email)));
         }
 
         public async Task<Applicant.model.ApplicantView> GetFullDataAsync(string email)
