@@ -14,12 +14,13 @@ namespace HhLib.Share.Models
     {
         public T User { get; set; }
         public string password { get; set; }
+        public string fingerprint { get; set; }
         [JsonIgnore]
         public List<ErrorModel> Errors { get; set; } = new List<ErrorModel>();
 
         public override bool IsValid()
         {
-            if (new List<object> { password, User }.Contains(null))
+            if (new List<object> { password, User, fingerprint }.Contains(null))
                 return false;
             if (!User.IsValid())
                 return false;

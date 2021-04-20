@@ -15,18 +15,20 @@ namespace HhLib.Share.Models
         {
             var claimsidentity = GetClaimsIdentity(user);
             var now = DateTime.UtcNow;
+            DateTime expires = now.Add(Settings.LIFETIMETS);
             var jwt = new JwtSecurityToken(
             issuer: Settings.ISSUER,
             audience: Settings.AUDIENCE,
             notBefore: now,
             claims: claimsidentity.Claims,
-            expires: now.Add(Settings.LIFETIMETS),
+            expires: expires,
             signingCredentials: new SigningCredentials(Settings.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             var response = new
             {
                 access_token = encodedJwt,
-                username = claimsidentity.Name
+                username = claimsidentity.Name, 
+                expires
             };
 
             return response;
