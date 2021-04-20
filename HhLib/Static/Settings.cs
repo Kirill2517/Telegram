@@ -24,13 +24,15 @@ namespace HhLib.Static
 
         public static PasswordValidatorHH PasswordValidator => Getjson()["PasswordValidator"].ToObject<PasswordValidatorHH>();
 
-        public static IPasswordHasher PasswordHasher => new HhLib.Share.Utils.Hashes.HasherPassword();
+        public static IPasswordHasher Hasher => new HhLib.Share.Utils.Hashes.Hasher();
         public const string SqlFolder = "sqls";
         public static string ISSUER => (string)Getjson()["issuer"]; // издатель токена
         public static string AUDIENCE = (string)Getjson()["audience"]; // потребитель токена
         static readonly string KEY = (string)Getjson()["key"];   // ключ для шифрации
-        public static int LIFETIME => (int)Getjson()["lifetime"]; // время жизни токена - 1 минута
+        private static int LIFETIME => (int)Getjson()["lifetime"];
+        private static int LIFETIMERT => (int)Getjson()["lifetimeRT"];
         public static TimeSpan LIFETIMETS => TimeSpan.FromMinutes(LIFETIME);
+        public static TimeSpan LIFETIMETSRT => TimeSpan.FromDays(LIFETIMERT);
         public static SymmetricSecurityKey GetSymmetricSecurityKey() => new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
         public static string connectionString => (string)Getjson()["dbConnection"];
     }

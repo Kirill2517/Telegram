@@ -52,7 +52,7 @@ namespace HhLib.Applicant.Managers
             int idSpeciality = await new Speciality.Managers.SpecialityManager().GetIdSpeciality(resume.Speciality);
             int idApplicant = await GetUserId(identity);
             var sql = $"{image.InsertCommand} values ({idApplicant}, {idSpeciality}, curtime(), {image.FieldsName});";
-            await this.InsertCommand(sql, resume);
+            await this.ActionCommand(sql, resume);
             return new { result = "success" };
         }
 

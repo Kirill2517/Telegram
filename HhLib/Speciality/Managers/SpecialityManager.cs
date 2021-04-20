@@ -27,7 +27,7 @@ namespace HhLib.Speciality.Managers
         {
             BDImageBase targetImage = GetImageByType(speciality);
             var command = $"{targetImage.InsertCommand} VALUES ({targetImage.FieldsName});";
-            return await this.InsertCommand(command, speciality) > 0;
+            return await this.ActionCommand(command, speciality) > 0;
         }
 
         private protected override BDImageBase GetImageByType<T>(T @object)

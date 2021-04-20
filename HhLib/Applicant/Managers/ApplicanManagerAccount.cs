@@ -28,10 +28,5 @@ namespace HhLib.Applicant.Managers
             applicant.DataUser = await GetDataUserAsync(email);
             return applicant;
         }
-
-        private protected override BDImageBase GetImageByType<T>(T @object)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -30,14 +30,14 @@ namespace HhLib.DataUser.controllers
         {
             DataUserImage dataUserImage = new DataUserImage();
             var command = dataUserImage.InsertCommand + $"VALUES ({dataUserImage.FieldsName}, '{password}');";
-            return await this.InsertCommand(command, dataUser) > 0;
+            return await this.ActionCommand(command, dataUser) > 0;
         }
 
         public async Task<bool> InsertUserAsync<T>(T user, string identity) where T : User
         {
             BDImageBase targetImage = GetImageByType(user);
             var command = $"{targetImage.InsertCommand} VALUES ('{await GetUserId(identity)}', {targetImage.FieldsName});";
-            return await this.InsertCommand(command, user) > 0;
+            return await this.ActionCommand(command, user) > 0;
         }
 
         public async Task<bool> CheckCorrectDataUserAsync(SignInModel user)

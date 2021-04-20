@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Controllers.Base
 {
-    public abstract class AuthControllerBase
+    public abstract class AuthControllerBase : AuthDataController
     {
-        protected AuthDataController bdcontroller = new AuthDataController();
         /// <summary>
         /// регистрация
         /// </summary>
@@ -26,8 +25,8 @@ namespace HhLib.Share.Controllers.Base
                 return new { error = "Model is not valid." };
             if (await AuthAsync(user))
             {
-                user.accountType = await bdcontroller.GetAccountType(user.email);
-                return TokenGenerator.GetToken(user);
+                user.accountType = await this.GetAccountType(user.email);
+                return await TokenGenerator.GetToken(user);
             }
             else return new { error = "Invalid username or password." };
         }

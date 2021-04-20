@@ -19,10 +19,5 @@ namespace HhLib.Employer.Managers
         {
             return await this.QueryCommandSingleAsync<DataUser.model.DataUser>($"SELECT DataUser.* FROM Applicant inner join DataUser on Applicant.idApplicant = DataUser.id where Applicant.idApplicant = {await this.GetUserId(Email)}; ");
         }
-
-        private protected override BDImageBase GetImageByType<T>(T @object)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Utils.Hashes
 {
-    public class HasherPassword : IPasswordHasher
+    public class Hasher : IPasswordHasher
     {
         public string HashPassword(string password)
         {

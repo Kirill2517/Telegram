@@ -23,9 +23,12 @@ namespace HhLib.Share.models
         protected async Task<T> QueryCommandSingleAsync<T>(string sql) => await connection.QuerySingleAsync<T>(sql);
         protected async Task<T> QueryCommandSingleOrDefaultAsync<T>(string sql, object key) => await connection.QuerySingleOrDefaultAsync<T>(sql, key);
         protected async Task<T> QueryCommandSingleOrDefaultAsync<T>(string sql) => await connection.QuerySingleOrDefaultAsync<T>(sql);
-        protected async Task<int> InsertCommand<T>(string sql, T obj) => await connection.ExecuteAsync(sql, obj);
+        protected async Task<int> ActionCommand<T>(string sql, T obj) => await connection.ExecuteAsync(sql, obj);
         protected async Task<int> GetUserId(string email) => await this.QueryCommandSingleAsync<int>($"SELECT id FROM DataUser where email = '{email}'");
-        protected private abstract BDImageBase GetImageByType<T>(T @object) where T : HhObject;
+        protected private virtual BDImageBase GetImageByType<T>(T @object) where T : HhObject
+        {
+            return null;
+        }
         /// <summary>
         /// значение поля существует в бд
         /// </summary>
