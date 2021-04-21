@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Tokens.models
 {
-    public class RefreshToken : HhObject
+    public class RefreshToken : Models.Object
     {
         public static RefreshToken GenerateRefrashToken()
         {

@@ -35,7 +35,7 @@ namespace HhLib.Share.Models
         Task<IdentityResult> ValidateAsync(T item);
     }
 
-    public class ErrorModel : HhObject
+    public class ErrorModel : Object
     {
         public int Code { get; set; }
         public string Description { get; set; }

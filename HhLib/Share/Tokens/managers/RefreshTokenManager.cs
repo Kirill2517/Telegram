@@ -96,49 +96,5 @@ namespace HhLib.Share.Tokens.managers
             await this.ActionCommand(sql, refreshtoken);
             return refreshtoken.refreshToken;
         }
-        #region oldcode
-        //public async Task<object> CreateNewSession(string email, string finger)
-        //{
-        //    var id = await this.GetUserId(email);
-        //    return await CreateNewSession(id, finger);
-        //}
-
-        //public async Task<object> CreateNewSession(int id, string finger)
-        //{
-        //    var refreshtoken = Tokens.models.RefreshToken.GenerateRefrashToken();
-        //    refreshtoken.fingerprint = finger;
-        //    refreshtoken.idDataUser = id;
-        //    if (!await FieldExists("fingerprint", finger, "refreshSessions"))
-        //    {
-        //        return await GenerateToken(refreshtoken);
-        //    }
-        //    return new { error = "You are already signed in from this device." };
-        //}
-
-
-
-        //public async Task<object> UpdateRefreshToken(string fingerprint, string refreshtoken)
-        //{
-        //    if (!await FieldExists("fingerprint", fingerprint, "refreshSessions"))
-        //        return new { error = "Invalid refresh session" };
-        //    var sql = $"{sqlPathMain}/SelectRefreshSession.sql".ReadStringFromatFromFile(fingerprint);
-        //    var token = await this.QueryCommandSingleAsync<Tokens.models.RefreshToken>(sql);
-        //    if (token.refreshToken != refreshtoken)
-        //        return new { error = "Invalid refresh session" };
-        //    if (token.expiresIn < DateTime.UtcNow)
-        //        return new { error = $"Token was expired {(DateTime.UtcNow - token.expiresIn).Days} ago." };
-
-        //    sql = $"{sqlPathMain}/DeleteSessionByFingerprint.sql".ReadStringFromatFromFile(fingerprint);
-        //    await this.ActionCommand(sql, fingerprint);
-
-
-        //    var newToken = Tokens.models.RefreshToken.GenerateRefrashToken();
-        //    newToken.idDataUser = token.idDataUser;
-        //    newToken.fingerprint = fingerprint;
-        //    return await GenerateToken(newToken);
-        //}
-        #endregion
-
-
     }
 }

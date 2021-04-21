@@ -11,7 +11,7 @@ namespace HhLib.Share.Tokens.managers
 {
     public class TokensManager : DataBaseController
     {
-        public async Task<HhObject> GetTokens(SignInModel signInModel)
+        public async Task<Models.Object> GetTokens(SignInModel signInModel)
         {
             RefreshTokenManager refreshTokenManager = new();
             int id = await this.GetUserId(signInModel.email);
@@ -52,7 +52,7 @@ namespace HhLib.Share.Tokens.managers
             };
         }
 
-        public async Task<HhObject> UpdateToken(RefreshToken refreshToken)
+        public async Task<Models.Object> UpdateToken(RefreshToken refreshToken)
         {
             var refreshManager = new RefreshTokenManager();
             refreshToken = await refreshManager.GetSession(refreshToken);

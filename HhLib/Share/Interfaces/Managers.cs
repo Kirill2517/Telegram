@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace HhLib.Share.Interfaces
 {
     public interface IStore<TObject>
-        where TObject : HhObject
+        where TObject : Models.Object
     {
         TObject GetModelById(object id);
         TObject[] GetAllModels();

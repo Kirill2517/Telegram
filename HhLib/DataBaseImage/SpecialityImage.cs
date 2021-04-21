@@ -14,7 +14,7 @@ namespace HhLib.DataBaseImage
         public override string InsertCommand => $"INSERT INTO {Title} (name)";
         public override string FieldsName => "@name";
 
-        public override Dictionary<string, object> UniqFields(HhObject hhObject)
+        public override Dictionary<string, object> UniqFields(Share.Models.Object hhObject)
         {
             var speciality = hhObject as Speciality.Model.Speciality;
             return new Dictionary<string, object>()

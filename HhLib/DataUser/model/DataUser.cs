@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HhLib.DataUser.model
 {
-    public class DataUser : HhObject
+    public class DataUser : Share.Models.Object
     {
         public string email { get; set; }
         public string firstName { get; set; }

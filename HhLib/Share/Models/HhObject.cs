@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HhLib.Share.Models
 {
-    public abstract class HhObject
+    public abstract class Object
     {
         public virtual bool IsValid()
         {

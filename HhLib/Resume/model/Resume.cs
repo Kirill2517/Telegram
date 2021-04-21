@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Resume.model
 {
-    public class Resume : HhObject
+    public class Resume : Share.Models.Object
     {
         public int Id { get; set; }
         public string Owner { get; set; }

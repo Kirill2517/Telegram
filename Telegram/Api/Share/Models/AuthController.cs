@@ -54,6 +54,7 @@ namespace Telegram.Api
 
         [HttpPost]
         [Route("logout")]
+        [Authorize]
         public async Task<IActionResult> Logout(RefreshToken refreshToken)
         {
             var controller = new HhLib.DataUser.controllers.AuthController();

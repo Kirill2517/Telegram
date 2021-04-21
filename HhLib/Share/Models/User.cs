@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HhLib.Share.Models
 {
-    public abstract class User : HhObject
+    public abstract class User : Object
     {
         public DataUser.model.DataUser DataUser { get; set; }
 

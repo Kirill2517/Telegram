@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Speciality.Model
 {
-    public class Speciality : HhObject
+    public class Speciality : Share.Models.Object
     {
         public int IdSpeciality { get; set; }
         public string name { get; set; }

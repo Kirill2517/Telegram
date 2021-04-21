@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Models
 {
-    public class Range : HhObject
+    public class Range : Object
     {
         public int start { get; set; }
         public int count { get; set; }

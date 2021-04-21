@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Tokens.models
 {
-    public class AccessToken : HhObject
+    public class AccessToken : Models.Object
     {
         public string access_token { get; set; }
         public DateTime expires { get; set; }
@@ -30,7 +30,7 @@ namespace HhLib.Share.Tokens.models
             return claimsIdentity;
         }
 
-        public static AccessToken GenerateAccessToken(SignInModel user)
+        internal static AccessToken GenerateAccessToken(SignInModel user)
         {
             var claimsidentity = GetClaimsIdentity(user);
             var now = DateTime.UtcNow;

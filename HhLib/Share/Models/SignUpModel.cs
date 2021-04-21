@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Models
 {
-    public class SignUpModel<T> : HhObject, IPasswordHolder
+    public class SignUpModel<T> : Object, IPasswordHolder
         where T : User
     {
         public T User { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HhLib.Share.Models
 {
-    public class SignInModel : HhObject
+    public class SignInModel : Object
     {
         public string fingerprint { get; set; }
         public string password { get; set; }

@@ -22,7 +22,7 @@ namespace HhLib.DataBaseImage
             new DbIndex("Type_Of_Employment", "idType_Of_Employment")
         };
 
-        internal override Dictionary<DbIndex, object> GetIndexes(HhObject hhObject)
+        internal override Dictionary<DbIndex, object> GetIndexes(Share.Models.Object hhObject)
         {
             var applicant = hhObject as Applicant.model.Applicant;
             return new Dictionary<DbIndex, object>()
@@ -33,7 +33,7 @@ namespace HhLib.DataBaseImage
             };
         }
 
-        public override Dictionary<string, object> UniqFields(HhObject hhObject)
+        public override Dictionary<string, object> UniqFields(Share.Models.Object hhObject)
         {
             return new Dictionary<string, object>();
         }

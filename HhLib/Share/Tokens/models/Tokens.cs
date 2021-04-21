@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HhLib.Share.Tokens.models
 {
-    public class Tokens : HhObject
+    public class Tokens : Models.Object
     {
         public string access_token { get; set; }
         public string email { get; set; }
