@@ -1,5 +1,6 @@
 ﻿using HhLib.DataUser.controllers;
 using HhLib.Share.Models;
+using HhLib.Share.Tokens.managers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace HhLib.Share.Controllers.Base
             if (await AuthAsync(user))
             {
                 user.accountType = await this.GetAccountType(user.email);
-                return await TokenGenerator.GetToken(user);
+                return await new TokensManager().GetTokens(user);
             }
             else return new { error = "Invalid username or password." };
         }

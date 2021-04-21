@@ -1,4 +1,4 @@
-using HhLib.Share.RefreshToken.models;
+using HhLib.Share.Tokens.models;
 using HhLib.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.RefreshToken.models
+namespace HhLib.Share.Tokens.models
 {
     public class RefreshToken : HhObject
     {
-        public static RefreshToken GenerateNewRefrashToken()
+        public static RefreshToken GenerateRefrashToken()
         {
             var list = new List<string>();
             for (int i = 0; i < Random.Next(3, 7); i++)

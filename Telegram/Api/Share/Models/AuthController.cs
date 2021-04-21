@@ -12,7 +12,7 @@ using HhLib.Applicant.model;
 using HhLib.Applicant.Managers;
 using Newtonsoft.Json.Serialization;
 using HhLib.Employer.model;
-using HhLib.Share.RefreshToken.models;
+using HhLib.Share.Tokens.models;
 
 namespace Telegram.Api
 {
@@ -49,16 +49,17 @@ namespace Telegram.Api
         public async Task<IActionResult> UpdateTokens(RefreshToken refreshToken)
         {
             var controller = new HhLib.DataUser.controllers.AuthController();
-            return Ok(await controller.UpdateTokens(refreshToken.fingerprint, refreshToken.refreshToken));
+            return Ok(await controller.UpdateTokens(refreshToken));
         }
 
-        //[HttpPost]
-        //[Route("logout")]
-        //public async Task<IActionResult> Logout(RefreshToken refreshToken)
-        //{
-        //    var controller = new HhLib.DataUser.controllers.AuthController();
-        //    return Ok(await controller.Logout(refreshToken.fingerprint, refreshToken.refreshToken, this.GetUserIdentity()));
-        //}
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout(RefreshToken refreshToken)
+        {
+            var controller = new HhLib.DataUser.controllers.AuthController();
+            var logedout = await controller.Logout(refreshToken, this.GetUserIdentity());
+            return Ok(logedout);
+        }
 
         private async Task<IActionResult> SignUpIdentity<T>(SignUpModel<T> model) where T : User
         {

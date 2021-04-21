@@ -2,7 +2,8 @@
 using HhLib.DataUser.model;
 using HhLib.Share.Controllers.Base;
 using HhLib.Share.Models;
-using HhLib.Share.RefreshToken.managers;
+using HhLib.Share.Tokens.managers;
+using HhLib.Share.Tokens.models;
 using HhLib.Share.Utils.Extensions;
 using HhLib.Static;
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace HhLib.DataUser.controllers
             await InsertDataUserAsync(model.User.DataUser, Settings.Hasher.HashPassword(model.password));
             await InsertUserAsync(model.User, model.User.DataUser.email);
             var type = await GetAccountType(model.User.DataUser.email);
-            object token = await TokenGenerator.GetToken(new SignInModel() { email = model.User.DataUser.email, accountType = type, fingerprint = model.fingerprint });
+            var token = await new TokensManager().GetTokens(new SignInModel() { email = model.User.DataUser.email, accountType = type, fingerprint = model.fingerprint });
             return token;
         }
 
@@ -49,23 +50,15 @@ namespace HhLib.DataUser.controllers
             return await CheckCorrectDataUserAsync(model);
         }
 
-        public async Task Logout(string fingerprint, string refreshToken, string email)
+        public async Task<ErrorModel> Logout(RefreshToken refreshToken, string email)
         {
-            //var refreshtokenmanager = new RefreshTokenManager();
-            //await refreshtokenmanager.DeleteSession(fingerprint, refreshToken);
+            var tokensManager = new TokensManager();
+            return await tokensManager.LogOut(refreshToken, email);
         }
 
-        public async Task<object> UpdateTokens(string fingerprint, string refreshtoken)
+        public async Task<object> UpdateTokens(RefreshToken refreshToken)
         {
-            var refreshtokenmanager = new RefreshTokenManager();
-            var rtDB = await refreshtokenmanager.UpdateRefreshToken(fingerprint, refreshtoken);
-            if (rtDB.GetType() != typeof(string))
-                return rtDB;
-
-            var sql = $"{Settings.SqlFolder}/refreshSessions/GetEmailByFingerprint.sql".ReadStringFromatFromFile(fingerprint);
-            var email = await QueryCommandSingleAsync<string>(sql);
-            var type = await GetAccountType(email);
-            return await TokenGenerator.GetToken(new SignInModel() { email = email, accountType = type, fingerprint = fingerprint }, rtDB as string);
+            return await new TokensManager().UpdateToken(refreshToken);    
         }
 
         public async Task<bool> SignUpSecondAccount<T>(string identity, T model) where T : User
