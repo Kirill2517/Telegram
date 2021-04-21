@@ -25,6 +25,13 @@ namespace HhLib.Share.models
         protected async Task<T> QueryCommandSingleOrDefaultAsync<T>(string sql) => await connection.QuerySingleOrDefaultAsync<T>(sql);
         protected async Task<int> ActionCommand<T>(string sql, T obj) => await connection.ExecuteAsync(sql, obj);
         protected async Task<int> GetUserId(string email) => await this.QueryCommandSingleAsync<int>($"SELECT id FROM DataUser where email = '{email}'");
+        protected async Task<string> GetEmailById(int id) => await this.QueryCommandSingleAsync<string>($"SELECT email FROM DataUser where id = {id}");
+        protected async Task<AccountType> GetAccountType(string email)
+        {
+            var image = new ApplicantImage();
+            var applicantExists = await this.FieldExists(image.IdFieldName, await GetUserId(email), image.Title);
+            return applicantExists ? AccountType.applicant : AccountType.employer;
+        }
         protected private virtual BDImageBase GetImageByType<T>(T @object) where T : HhObject
         {
             return null;
