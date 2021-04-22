@@ -1,5 +1,5 @@
 ﻿using HhLib.Share.Models;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace HhLib.Applicant.model
 {
@@ -7,9 +7,9 @@ namespace HhLib.Applicant.model
     {
         public int? idSex { get; set; }
         public int? idEducation { get; set; }
-        [JsonProperty(PropertyName = "idTypeEmployment")]
+        [JsonPropertyName("idTypeEmployment")]
         public int? idTypeOfDesiredEmployment { get; set; }
-        [JsonProperty(PropertyName = "desiredArea")]
+        [JsonPropertyName("desiredArea")]
         public string desiredWorkLocationArea { get; set; }
 
         public override bool IsValid()

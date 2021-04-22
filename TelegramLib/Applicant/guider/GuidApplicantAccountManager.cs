@@ -10,7 +10,5 @@ namespace HhLib.Applicant.guider
     public class GuidApplicantAccountManager : GuidManagerBase
     {
         protected override string sqlPathFolder => base.sqlPathFolder + "/Applicant";
-
-
     }
 }

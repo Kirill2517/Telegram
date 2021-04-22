@@ -47,7 +47,7 @@ namespace Telegram
                         };
                     });
             services.AddControllersWithViews();
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers();
             services.AddControllers()
                     .ConfigureApiBehaviorOptions(options =>
                     {
