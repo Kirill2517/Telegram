@@ -11,7 +11,7 @@ namespace Telegram.Api.Share.Applicant
     [Route("api/[controller]")]
     public class ApplicantAccount : ApplicantBase
     {
-        [HttpPost]
+        [HttpGet]
         [Route("getdata")]
         public async Task<IActionResult> GetAccountData()
         {
@@ -22,7 +22,7 @@ namespace Telegram.Api.Share.Applicant
             });
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("getshortdata")]
         public async Task<IActionResult> GetApplicantData()
         {
@@ -34,7 +34,7 @@ namespace Telegram.Api.Share.Applicant
             });
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("getfulldata")]
         public async Task<IActionResult> GetFullAccountData()
         {

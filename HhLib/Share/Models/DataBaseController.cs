@@ -3,7 +3,9 @@ using HhLib.DataBaseImage;
 using HhLib.Static;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HhLib.Share.Models
@@ -11,7 +13,7 @@ namespace HhLib.Share.Models
     public abstract class DataBaseController : IDisposable
     {
         private readonly string connectionstring = Settings.connectionString;
-        protected readonly MySqlConnection connection;
+        private readonly MySqlConnection connection;
         protected virtual string sqlPathFolder { get; } = Settings.SqlFolder;
         public DataBaseController()
         {
@@ -21,6 +23,15 @@ namespace HhLib.Share.Models
         protected async Task<IEnumerable<T>> QueryCommandIEnumerable<T>(string sql)
         {
             return await connection.QueryAsync<T>(sql);
+        }
+
+        protected void InsertCollection<T>(IEnumerable<T> collection, Action<T> action)
+        {
+            if (collection != null)
+                foreach (var item in collection)
+                {
+                    action(item);
+                }
         }
 
         protected async Task<T> QueryCommandSingleAsync<T>(string sql)
@@ -38,7 +49,7 @@ namespace HhLib.Share.Models
             return await connection.QuerySingleOrDefaultAsync<T>(sql);
         }
 
-        protected async Task<int> ActionCommand<T>(string sql, T obj)
+        protected async Task<int> ActionCommand(string sql, object obj = null)
         {
             return await connection.ExecuteAsync(sql, obj);
         }
@@ -51,6 +62,11 @@ namespace HhLib.Share.Models
         protected async Task<string> GetEmailById(int id)
         {
             return await QueryCommandSingleAsync<string>($"SELECT email FROM DataUser where id = {id}");
+        }
+
+        protected async Task<int> GetLastInsertedId()
+        {
+            return await this.QueryCommandSingleAsync<int>("select last_insert_id();");
         }
 
         protected async Task<AccountType> GetAccountType(string email)

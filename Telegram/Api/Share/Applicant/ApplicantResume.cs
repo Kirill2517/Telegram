@@ -17,7 +17,7 @@ namespace Telegram.Api.Share.Applicant
         //без параметров - выдаст все свои резюме
         //с параметрами start и count - в определенном диапазоне
         //с параметром count - резюме от 0 до count
-        [HttpPost]
+        [HttpGet]
         [Route("getallresume")]
         public async Task<IActionResult> GetAllResumeOfMine(int start, int count)
         {
@@ -36,6 +36,7 @@ namespace Telegram.Api.Share.Applicant
             return await BaseFunction(async delegate ()
             {
                 ApplicantManagerResume applicantManager = new();
+                //TODO: возврат positives, negatives
                 return Ok(await applicantManager.CreateResume(resume, this.GetUserIdentity()));
             });
         }

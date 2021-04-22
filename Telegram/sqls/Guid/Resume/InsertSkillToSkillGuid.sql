@@ -1,0 +1,1 @@
+﻿INSERT INTO Skills_Guide (description) VALUES ('{0}');

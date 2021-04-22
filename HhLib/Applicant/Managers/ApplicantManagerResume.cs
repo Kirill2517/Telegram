@@ -1,4 +1,5 @@
 ﻿using HhLib.DataBaseImage;
+using HhLib.Resume.guider;
 using HhLib.Share.Utils.Extensions;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,10 @@ namespace HhLib.Applicant.managers
                 : $"{sqlPathFolder}/SelectRangeOfMyResumeByEmail.sql".ReadStringFromatFromFile(email, range.start, range.count);
 
             IEnumerable<Resume.model.Resume> resumes = await QueryCommandIEnumerable<Resume.model.Resume>(sql);
+            foreach (var resume in resumes)
+            {
+                resume.skills = (await new GuidResumeManager().GetSkillsOfResume(resume.Id)).ToList();
+            }
             return new { count = resumes.Count(), resumes };
         }
 
@@ -48,6 +53,10 @@ namespace HhLib.Applicant.managers
             int idApplicant = await GetUserId(identity);
             string sql = $"{image.InsertCommand} values ({idApplicant}, {idSpeciality}, curtime(), {image.FieldsName});";
             await ActionCommand(sql, resume);
+
+            resume.Id = await this.GetLastInsertedId();
+            new GuidResumeManager().InsertAbilities(resume);
+
             return new { result = "success" };
         }
 
