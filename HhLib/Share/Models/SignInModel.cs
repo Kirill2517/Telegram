@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HhLib.Share.Models
 {
@@ -14,7 +13,10 @@ namespace HhLib.Share.Models
         public override bool IsValid()
         {
             if (new List<object> { email, password, fingerprint }.Contains(null))
+            {
                 return false;
+            }
+
             return true;
         }
     }

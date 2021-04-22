@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ServerApplicationInterface
@@ -22,7 +14,7 @@ namespace ServerApplicationInterface
 
         private void SignUpDataUserForm_Load(object sender, EventArgs e)
         {
-            foreach (var item in this.Controls.OfType<TextBox>())
+            foreach (TextBox item in Controls.OfType<TextBox>())
             {
                 item.SetWatermark(item.Name);
             }

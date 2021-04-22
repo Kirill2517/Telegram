@@ -1,10 +1,6 @@
 ﻿using HhLib.Share.Models;
-using HhLib.Share.Models;
 using HhLib.Share.Tokens.models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Object = HhLib.Share.Models.Object;
 
@@ -15,14 +11,17 @@ namespace HhLib.Share.Tokens.managers
         public async Task<Object> GetTokens(SignInModel signInModel)
         {
             RefreshTokenManager refreshTokenManager = new();
-            int id = await this.GetUserId(signInModel.email);
+            int id = await GetUserId(signInModel.email);
             if (await refreshTokenManager.DriverIsSignedIn(signInModel.fingerprint, id))
+            {
                 return new ErrorModel()
                 {
                     Code = 404,
                     Description = "Driver alredy exists."
                 };
-            var accesstoken = AccessToken.GenerateAccessToken(signInModel);
+            }
+
+            AccessToken accesstoken = AccessToken.GenerateAccessToken(signInModel);
             RefreshToken refreshToken = await refreshTokenManager.GenerateNewSeesion(id, signInModel.fingerprint);
 
             return new models.Tokens()
@@ -37,13 +36,15 @@ namespace HhLib.Share.Tokens.managers
         public async Task<ErrorModel> LogOut(RefreshToken refreshToken, string email)
         {
             RefreshTokenManager refreshTokenManager = new();
-            int id = await this.GetUserId(email);
+            int id = await GetUserId(email);
             if (!await refreshTokenManager.DriverIsSignedIn(refreshToken, id))
+            {
                 return new ErrorModel()
                 {
                     Code = 404,
                     Description = "Session does not exist."
                 };
+            }
 
             await refreshTokenManager.DeleteSession(id, refreshToken.fingerprint);
             return new ErrorModel()
@@ -55,14 +56,17 @@ namespace HhLib.Share.Tokens.managers
 
         public async Task<Object> UpdateToken(RefreshToken refreshToken)
         {
-            var refreshManager = new RefreshTokenManager();
+            RefreshTokenManager refreshManager = new RefreshTokenManager();
             refreshToken = await refreshManager.GetSession(refreshToken);
             if (refreshToken is null)
+            {
                 return new ErrorModel()
                 {
                     Code = 404,
                     Description = "Session does not exist."
                 };
+            }
+
             if (refreshToken.expiresIn < DateTime.UtcNow)
             {
                 await refreshManager.DeleteSession(refreshToken);
@@ -74,7 +78,7 @@ namespace HhLib.Share.Tokens.managers
             }
 
             await refreshManager.DeleteSession(refreshToken.idDataUser, refreshToken.fingerprint);
-            var email = await GetEmailById(refreshToken.idDataUser);
+            string email = await GetEmailById(refreshToken.idDataUser);
             return await GetTokens(new SignInModel() { accountType = await GetAccountType(email), email = email, fingerprint = refreshToken.fingerprint });
         }
     }

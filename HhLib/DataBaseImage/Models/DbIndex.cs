@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HhLib.DataBaseImage.Models
+﻿namespace HhLib.DataBaseImage.Models
 {
     internal class DbIndex
     {

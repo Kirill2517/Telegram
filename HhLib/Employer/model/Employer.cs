@@ -1,9 +1,5 @@
-﻿using HhLib.DataUser.model;
-using HhLib.Share.Models;
-using System;
+﻿using HhLib.Share.Models;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace HhLib.Employer.model
 {
@@ -16,7 +12,10 @@ namespace HhLib.Employer.model
         public override bool IsValid()
         {
             if (new List<object> { name }.Contains(null))
+            {
                 return false;
+            }
+
             return DataUserIsValid;
         }
     }

@@ -1,8 +1,4 @@
-﻿using HhLib.DataUser.model;
-using HhLib.Share.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using HhLib.Share.Models;
 using Newtonsoft.Json;
 
 namespace HhLib.Applicant.model

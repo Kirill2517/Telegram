@@ -1,12 +1,7 @@
 ﻿using HhLib.Applicant.managers;
 using HhLib.Applicant.model;
-using HhLib.DataUser.model;
-using HhLib.Share.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Utils.Controller;
 namespace Telegram.Api.Share.Applicant

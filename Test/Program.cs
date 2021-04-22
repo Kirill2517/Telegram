@@ -1,21 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 public static class Extensions
 {
-    public static int Length(this Person person) => person.Name.Length;
+    public static int Length(this Person person)
+    {
+        return person.Name.Length;
+    }
 }
 public class Person
 {
     public string Name { get; set; }
 
-    public char GetFirstChar() => Name[1];
+    public char GetFirstChar()
+    {
+        return Name[1];
+    }
 }
 
-class Program
+internal class Program
 {
     #region MyRegion
     //public static string HashPassword(string password)
@@ -70,7 +71,7 @@ class Program
     #endregion
 
 
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         Console.WriteLine(new Person() { Name = "Kirill" }.Length());
     }

@@ -12,7 +12,7 @@ namespace HhLib.Share.Utils.Validator
         public bool RequireDigit { get; set; }
         public async Task<IdentityResult> ValidateAsync(string item)
         {
-            var ir = new IdentityResult() { Successed = true };
+            IdentityResult ir = new IdentityResult() { Successed = true };
             return ir;
         }
     }

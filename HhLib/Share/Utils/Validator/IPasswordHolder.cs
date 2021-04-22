@@ -1,14 +1,10 @@
 ﻿using HhLib.Share.Models;
-using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HhLib.Share.Utils.Validator
 {
-    interface IPasswordHolder
+    internal interface IPasswordHolder
     {
         public string password { get; set; }
         public List<ErrorModel> Errors { get; set; }

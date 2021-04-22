@@ -1,12 +1,6 @@
-﻿using HhLib.Share.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Dapper;
+﻿using HhLib.DataBaseImage;
 using HhLib.Share.Models;
-using HhLib.DataBaseImage;
 using System.Threading.Tasks;
-using HhLib.Applicant.model;
 
 namespace HhLib.DataUser.controllers
 {
@@ -17,7 +11,7 @@ namespace HhLib.DataUser.controllers
             if (await FieldExists("email", identity, new DataUserImage().Title))
             {
                 int id = await GetUserId(identity);
-                var targetImage = GetImageByType(user);
+                BDImageBase targetImage = GetImageByType(user);
                 return await FieldExists(targetImage.IdFieldName, id, targetImage.Title);
             }
             return false;
@@ -29,15 +23,15 @@ namespace HhLib.DataUser.controllers
         public async Task<bool> InsertDataUserAsync(model.DataUser dataUser, string password)
         {
             DataUserImage dataUserImage = new DataUserImage();
-            var command = dataUserImage.InsertCommand + $"VALUES ({dataUserImage.FieldsName}, '{password}');";
-            return await this.ActionCommand(command, dataUser) > 0;
+            string command = dataUserImage.InsertCommand + $"VALUES ({dataUserImage.FieldsName}, '{password}');";
+            return await ActionCommand(command, dataUser) > 0;
         }
 
         public async Task<bool> InsertUserAsync<T>(T user, string identity) where T : User
         {
             BDImageBase targetImage = GetImageByType(user);
-            var command = $"{targetImage.InsertCommand} VALUES ('{await GetUserId(identity)}', {targetImage.FieldsName});";
-            return await this.ActionCommand(command, user) > 0;
+            string command = $"{targetImage.InsertCommand} VALUES ('{await GetUserId(identity)}', {targetImage.FieldsName});";
+            return await ActionCommand(command, user) > 0;
         }
 
         public async Task<bool> CheckCorrectDataUserAsync(SignInModel user)
@@ -48,11 +42,20 @@ namespace HhLib.DataUser.controllers
         private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Applicant.model.Applicant))
+            {
                 return new ApplicantImage();
+            }
+
             if (@object.GetType() == typeof(Employer.model.Employer))
+            {
                 return new EmployerImage();
+            }
+
             if (@object.GetType() == typeof(DataUser.model.DataUser))
+            {
                 return new DataUserImage();
+            }
+
             return null;
         }
     }

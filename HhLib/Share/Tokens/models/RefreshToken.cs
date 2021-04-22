@@ -1,10 +1,7 @@
-﻿using HhLib.Share.Models;
-using HhLib.Static;
+﻿using HhLib.Static;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HhLib.Share.Tokens.models
 {
@@ -13,7 +10,7 @@ namespace HhLib.Share.Tokens.models
         private static readonly Random Random = new();
         public static RefreshToken GenerateRefrashToken()
         {
-            var list = new List<string>();
+            List<string> list = new List<string>();
             for (int i = 0; i < Random.Next(3, 7); i++)
             {
                 list.Add(Guid.NewGuid().ToString());
@@ -30,10 +27,10 @@ namespace HhLib.Share.Tokens.models
 
         private static string SummaTokens(IEnumerable<string> guids)
         {
-            var result = new StringBuilder();
+            StringBuilder result = new StringBuilder();
             for (int i = 0; i < 36; i++)
             {
-                foreach (var guid in guids)
+                foreach (string guid in guids)
                 {
                     result.Append(guid[Random.Next(0, 36)]);
                 }
@@ -51,7 +48,10 @@ namespace HhLib.Share.Tokens.models
         public override bool IsValid()
         {
             if (new List<object> { fingerprint, refreshToken }.Contains(null))
+            {
                 return false;
+            }
+
             return true;
         }
     }

@@ -1,9 +1,4 @@
-﻿using HhLib.Share.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HhLib.DataBaseImage
 {
@@ -16,7 +11,7 @@ namespace HhLib.DataBaseImage
 
         public override Dictionary<string, object> UniqFields(Share.Models.Object hhObject)
         {
-            var speciality = hhObject as Speciality.Model.Speciality;
+            Speciality.Model.Speciality speciality = hhObject as Speciality.Model.Speciality;
             return new Dictionary<string, object>()
             {
                 {

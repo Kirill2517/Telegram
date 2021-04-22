@@ -1,9 +1,4 @@
-﻿using HhLib.Share.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace HhLib.Speciality.Model
 {
@@ -15,7 +10,10 @@ namespace HhLib.Speciality.Model
         public override bool IsValid()
         {
             if (new List<object> { name }.Contains(null))
+            {
                 return false;
+            }
+
             return true;
         }
     }

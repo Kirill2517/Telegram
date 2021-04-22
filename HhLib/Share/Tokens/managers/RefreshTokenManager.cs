@@ -1,18 +1,12 @@
 ﻿using HhLib.Share.Models;
-using HhLib.Share.Models;
 using HhLib.Share.Tokens.models;
 using HhLib.Share.Utils.Extensions;
 using HhLib.Static;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HhLib.Share.Tokens.managers
 {
-    class RefreshTokenManager : DataBaseController
+    internal class RefreshTokenManager : DataBaseController
     {
         protected const string sqlPathMain = Settings.SqlFolder + "/refreshSessions";
         /// <summary>
@@ -35,22 +29,22 @@ namespace HhLib.Share.Tokens.managers
 
         public async Task<RefreshToken> GetSession(string fingerprint, int id)
         {
-            var sql = $"{sqlPathMain}/SelectRefreshSessionById.sql".ReadStringFromatFromFile(fingerprint, id);
-            var refreshtoken = await this.QueryCommandSingleOrDefaultAsync<RefreshToken>(sql);
+            string sql = $"{sqlPathMain}/SelectRefreshSessionById.sql".ReadStringFromatFromFile(fingerprint, id);
+            RefreshToken refreshtoken = await QueryCommandSingleOrDefaultAsync<RefreshToken>(sql);
             return refreshtoken;
         }
 
         public async Task<RefreshToken> GetSession(RefreshToken refreshToken)
         {
-            var sql = $"{sqlPathMain}/SelectRefreshSessionByToken.sql".ReadStringFromatFromFile(refreshToken.fingerprint, refreshToken.refreshToken);
-            var refreshtoken = await this.QueryCommandSingleOrDefaultAsync<RefreshToken>(sql);
+            string sql = $"{sqlPathMain}/SelectRefreshSessionByToken.sql".ReadStringFromatFromFile(refreshToken.fingerprint, refreshToken.refreshToken);
+            RefreshToken refreshtoken = await QueryCommandSingleOrDefaultAsync<RefreshToken>(sql);
             return refreshtoken;
         }
 
         public async Task<RefreshToken> GetSession(RefreshToken refreshToken, int id)
         {
-            var sql = $"{sqlPathMain}/SelectRefreshSessionByToken_Id.sql".ReadStringFromatFromFile(refreshToken.fingerprint, refreshToken.refreshToken, id);
-            var refreshtoken = await this.QueryCommandSingleOrDefaultAsync<RefreshToken>(sql);
+            string sql = $"{sqlPathMain}/SelectRefreshSessionByToken_Id.sql".ReadStringFromatFromFile(refreshToken.fingerprint, refreshToken.refreshToken, id);
+            RefreshToken refreshtoken = await QueryCommandSingleOrDefaultAsync<RefreshToken>(sql);
             return refreshtoken;
         }
 
@@ -59,7 +53,10 @@ namespace HhLib.Share.Tokens.managers
         /// </summary>
         /// <param name="fingerprint"></param>
         /// <returns></returns>
-        internal async Task<bool> DriverIsSignedIn(string fingerprint) => await FieldExists("fingerprint", fingerprint, "refreshSessions");
+        internal async Task<bool> DriverIsSignedIn(string fingerprint)
+        {
+            return await FieldExists("fingerprint", fingerprint, "refreshSessions");
+        }
 
 
         /// <summary>
@@ -70,7 +67,7 @@ namespace HhLib.Share.Tokens.managers
         /// <returns></returns>
         internal async Task<RefreshToken> GenerateNewSeesion(int id, string fingerprint)
         {
-            var refreshtoken = RefreshToken.GenerateRefrashToken();
+            RefreshToken refreshtoken = RefreshToken.GenerateRefrashToken();
             refreshtoken.fingerprint = fingerprint;
             refreshtoken.idDataUser = id;
             await WriteToDataBase(refreshtoken);
@@ -79,21 +76,21 @@ namespace HhLib.Share.Tokens.managers
 
         internal async Task DeleteSession(int id, string fingerprint)
         {
-            var sql = $"{sqlPathMain}/DeleteSessionById.sql".ReadStringFromatFromFile(fingerprint, id);
-            await this.ActionCommand(sql, fingerprint);
+            string sql = $"{sqlPathMain}/DeleteSessionById.sql".ReadStringFromatFromFile(fingerprint, id);
+            await ActionCommand(sql, fingerprint);
         }
 
         internal async Task DeleteSession(RefreshToken refreshToken)
         {
-            var sql = $"{sqlPathMain}/DeleteSessionByToken.sql".ReadStringFromatFromFile(refreshToken.fingerprint, refreshToken.refreshToken);
-            await this.ActionCommand(sql, refreshToken.fingerprint);
+            string sql = $"{sqlPathMain}/DeleteSessionByToken.sql".ReadStringFromatFromFile(refreshToken.fingerprint, refreshToken.refreshToken);
+            await ActionCommand(sql, refreshToken.fingerprint);
         }
 
         private async Task<string> WriteToDataBase(models.RefreshToken refreshtoken)
         {
-            var sql = $"{sqlPathMain}/InsertRefreshSession.sql".ReadStringFromatFromFile(refreshtoken.idDataUser, refreshtoken.fingerprint,
+            string sql = $"{sqlPathMain}/InsertRefreshSession.sql".ReadStringFromatFromFile(refreshtoken.idDataUser, refreshtoken.fingerprint,
                 refreshtoken.refreshToken, refreshtoken.expiresIn.DateTimeFormatSql(), refreshtoken.createdAt.DateTimeFormatSql());
-            await this.ActionCommand(sql, refreshtoken);
+            await ActionCommand(sql, refreshtoken);
             return refreshtoken.refreshToken;
         }
     }

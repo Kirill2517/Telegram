@@ -1,7 +1,5 @@
-﻿using HhLib.Share.Utils.Validator;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
@@ -28,12 +26,16 @@ namespace HhLib.Static
         public const string SqlFolder = "sqls";
         public static string ISSUER => (string)Getjson()["issuer"]; // издатель токена
         public static string AUDIENCE = (string)Getjson()["audience"]; // потребитель токена
-        static readonly string KEY = (string)Getjson()["key"];   // ключ для шифрации
+        private static readonly string KEY = (string)Getjson()["key"];   // ключ для шифрации
         private static int LIFETIME => (int)Getjson()["lifetime"];
         private static int LIFETIMERT => (int)Getjson()["lifetimeRT"];
         public static TimeSpan LIFETIMETS => TimeSpan.FromMinutes(LIFETIME);
         public static TimeSpan LIFETIMETSRT => TimeSpan.FromDays(LIFETIMERT);
-        public static SymmetricSecurityKey GetSymmetricSecurityKey() => new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
+        public static SymmetricSecurityKey GetSymmetricSecurityKey()
+        {
+            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
+        }
+
         public static string connectionString => (string)Getjson()["dbConnection"];
     }
 }

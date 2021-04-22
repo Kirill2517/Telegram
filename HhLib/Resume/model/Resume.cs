@@ -1,9 +1,5 @@
-﻿using HhLib.Share.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HhLib.Resume.model
 {
@@ -21,7 +17,10 @@ namespace HhLib.Resume.model
         public override bool IsValid()
         {
             if (new List<object> { Speciality, title, workExperience }.Contains(null))
+            {
                 return false;
+            }
+
             return true;
         }
     }

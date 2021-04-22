@@ -1,18 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using HhLib.Applicant.model;
+using HhLib.Employer.model;
+using HhLib.Share.Models;
+using HhLib.Share.Tokens.models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Telegram.Utils.Controller;
-using HhLib.Share.Models;
-using HhLib.DataUser.controllers;
-using HhLib.Applicant.model;
-using HhLib.Applicant.managers;
-using Newtonsoft.Json.Serialization;
-using HhLib.Employer.model;
-using HhLib.Share.Tokens.models;
 
 namespace Telegram.Api
 {
@@ -24,7 +17,7 @@ namespace Telegram.Api
         [Route("signin")]
         public async Task<IActionResult> SignIn(SignInModel identityUser)
         {
-            var controller = new HhLib.DataUser.controllers.AuthController();
+            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
             return Ok(await controller.AuthorizeAsync(identityUser));
         }
 
@@ -48,7 +41,7 @@ namespace Telegram.Api
         [Route("updatetoken")]
         public async Task<IActionResult> UpdateTokens(RefreshToken refreshToken)
         {
-            var controller = new HhLib.DataUser.controllers.AuthController();
+            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
             return Ok(await controller.UpdateTokens(refreshToken));
         }
 
@@ -57,18 +50,21 @@ namespace Telegram.Api
         [Authorize]
         public async Task<IActionResult> Logout(RefreshToken refreshToken)
         {
-            var controller = new HhLib.DataUser.controllers.AuthController();
-            var logedout = await controller.Logout(refreshToken, this.GetUserIdentity());
+            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
+            ErrorModel logedout = await controller.Logout(refreshToken, this.GetUserIdentity());
             return Ok(logedout);
         }
 
         private async Task<IActionResult> SignUpIdentity<T>(SignUpModel<T> model) where T : User
         {
-            var controller = new HhLib.DataUser.controllers.AuthController();
+            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
             if (!this.UserIsAuthorized())
             {
                 if (!ModelState.IsValid)
+                {
                     return BadRequest();
+                }
+
                 return Ok(await controller.SignUpUnauthorizedAsync(model));
             }
 

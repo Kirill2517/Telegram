@@ -3,9 +3,6 @@ using HhLib.Resume.model;
 using HhLib.Share.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Telegram.Utils.Controller;
 

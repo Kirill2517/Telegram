@@ -1,10 +1,6 @@
 ﻿using HhLib.DataUser.controllers;
 using HhLib.Share.Models;
 using HhLib.Share.Tokens.managers;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HhLib.Share.Controllers.Base
@@ -23,13 +19,19 @@ namespace HhLib.Share.Controllers.Base
         public virtual async Task<object> AuthorizeAsync(SignInModel user)
         {
             if (!user.IsValid())
+            {
                 return new { error = "Model is not valid." };
+            }
+
             if (await AuthAsync(user))
             {
-                user.accountType = await this.GetAccountType(user.email);
+                user.accountType = await GetAccountType(user.email);
                 return await new TokensManager().GetTokens(user);
             }
-            else return new { error = "Invalid username or password." };
+            else
+            {
+                return new { error = "Invalid username or password." };
+            }
         }
         /// <summary>
         /// проверка логина, пароля и существования пользователя

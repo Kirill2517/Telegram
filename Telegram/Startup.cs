@@ -1,19 +1,13 @@
-using HhLib.Share.Tokens.models;
 using HhLib.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mime;
-using System.Threading.Tasks;
 
 namespace Telegram
 {
@@ -59,7 +53,7 @@ namespace Telegram
                     {
                         options.InvalidModelStateResponseFactory = context =>
                         {
-                            var result = new BadRequestObjectResult(context.ModelState);
+                            BadRequestObjectResult result = new BadRequestObjectResult(context.ModelState);
                             result.ContentTypes.Add(MediaTypeNames.Application.Json);
                             return result;
                         };

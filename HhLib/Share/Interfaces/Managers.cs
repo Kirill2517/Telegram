@@ -1,11 +1,4 @@
-﻿using HhLib.DataBaseImage;
-using HhLib.Employer.model;
-using HhLib.Share.Models;
-using HhLib.Share.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using HhLib.Share.Models;
 using System.Threading.Tasks;
 
 namespace HhLib.Share.Interfaces

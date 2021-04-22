@@ -1,9 +1,5 @@
-﻿using HhLib.Applicant.model;
-using HhLib.DataBaseImage.Models;
-using HhLib.Share.Models;
-using System;
+﻿using HhLib.DataBaseImage.Models;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HhLib.DataBaseImage
 {
@@ -24,7 +20,7 @@ namespace HhLib.DataBaseImage
 
         internal override Dictionary<DbIndex, object> GetIndexes(Share.Models.Object hhObject)
         {
-            var applicant = hhObject as Applicant.model.Applicant;
+            Applicant.model.Applicant applicant = hhObject as Applicant.model.Applicant;
             return new Dictionary<DbIndex, object>()
             {
                 { Indexes[0], applicant.idSex },

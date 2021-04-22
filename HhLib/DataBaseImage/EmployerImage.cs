@@ -1,9 +1,4 @@
-﻿using HhLib.DataBaseImage.Models;
-using HhLib.Employer.model;
-using HhLib.Share.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace HhLib.DataBaseImage
 {
@@ -15,7 +10,7 @@ namespace HhLib.DataBaseImage
         public override string FieldsName => "@name, @address, @website";
         public override Dictionary<string, object> UniqFields(Share.Models.Object hhObject)
         {
-            var employer = hhObject as Employer.model.Employer;
+            Employer.model.Employer employer = hhObject as Employer.model.Employer;
             return new Dictionary<string, object>()
             {
                 {

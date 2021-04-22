@@ -4,10 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HhLib.Share.Tokens.models
 {
@@ -18,7 +15,7 @@ namespace HhLib.Share.Tokens.models
         public string email { get; set; }
         private static ClaimsIdentity GetClaimsIdentity(SignInModel user)
         {
-            var claims = new List<Claim>
+            List<Claim> claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.email),
                     new Claim(ClaimTypes.Role, user.accountType.ToString()),
@@ -32,17 +29,17 @@ namespace HhLib.Share.Tokens.models
 
         internal static AccessToken GenerateAccessToken(SignInModel user)
         {
-            var claimsidentity = GetClaimsIdentity(user);
-            var now = DateTime.UtcNow;
+            ClaimsIdentity claimsidentity = GetClaimsIdentity(user);
+            DateTime now = DateTime.UtcNow;
             DateTime expires = now.Add(Settings.LIFETIMETS);
-            var jwt = new JwtSecurityToken(
+            JwtSecurityToken jwt = new JwtSecurityToken(
             issuer: Settings.ISSUER,
             audience: Settings.AUDIENCE,
             notBefore: now,
             claims: claimsidentity.Claims,
             expires: expires,
             signingCredentials: new SigningCredentials(Settings.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            string encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             return new AccessToken()
             {

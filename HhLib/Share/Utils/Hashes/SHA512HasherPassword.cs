@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +16,10 @@ namespace HhLib.Share.Utils.Hashes
         public PasswordVerificationResult VerifyHashedPassword(string hashedPassword, string providedPassword)
         {
             if (HashPassword(providedPassword).Equals(hashedPassword))
+            {
                 return PasswordVerificationResult.Success;
+            }
+
             return PasswordVerificationResult.Failed;
         }
 
@@ -27,13 +27,16 @@ namespace HhLib.Share.Utils.Hashes
         {
             return await Task.Run(() =>
             {
-                var bytes = System.Text.Encoding.UTF8.GetBytes(input);
-                using (var hash = SHA512.Create())
+                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input);
+                using (SHA512 hash = SHA512.Create())
                 {
-                    var hashedInputBytes = hash.ComputeHash(bytes);
-                    var hashedInputStringBuilder = new System.Text.StringBuilder(128);
-                    foreach (var b in hashedInputBytes)
+                    byte[] hashedInputBytes = hash.ComputeHash(bytes);
+                    StringBuilder hashedInputStringBuilder = new System.Text.StringBuilder(128);
+                    foreach (byte b in hashedInputBytes)
+                    {
                         hashedInputStringBuilder.Append(b.ToString("X2"));
+                    }
+
                     return hashedInputStringBuilder.ToString();
                 }
             });
