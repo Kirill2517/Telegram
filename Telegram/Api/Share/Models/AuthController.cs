@@ -9,7 +9,7 @@ using Telegram.Utils.Controller;
 using HhLib.Share.Models;
 using HhLib.DataUser.controllers;
 using HhLib.Applicant.model;
-using HhLib.Applicant.Managers;
+using HhLib.Applicant.managers;
 using Newtonsoft.Json.Serialization;
 using HhLib.Employer.model;
 using HhLib.Share.Tokens.models;

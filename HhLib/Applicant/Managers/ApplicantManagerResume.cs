@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HhLib.Applicant.Managers
+namespace HhLib.Applicant.managers
 {
     public class ApplicantManagerResume : ApplicantManagerBase
     {
-        private readonly string sqlPathMain = ApplicantManagerBase.sqlPathMain + "/Resume";
+        protected override string sqlPathFolder => base.sqlPathFolder + "/Resume";
 
         //range == null     all
         //range is not valid        error
@@ -23,8 +23,8 @@ namespace HhLib.Applicant.Managers
                 return new { error = "Range is not valid." };
 
             string sql = range is null
-                ? $"{sqlPathMain}/GetAllResumeByApplicantEmail.sql".ReadStringFromatFromFile(email)
-                : $"{sqlPathMain}/SelectRangeOfMyResumeByEmail.sql".ReadStringFromatFromFile(email, range.start, range.count);
+                ? $"{sqlPathFolder}/GetAllResumeByApplicantEmail.sql".ReadStringFromatFromFile(email)
+                : $"{sqlPathFolder}/SelectRangeOfMyResumeByEmail.sql".ReadStringFromatFromFile(email, range.start, range.count);
 
             IEnumerable<Resume.model.Resume> resumes = await this.QueryCommandIEnumerable<Resume.model.Resume>(sql);
             return new { count = resumes.Count(), resumes };
@@ -32,14 +32,9 @@ namespace HhLib.Applicant.Managers
 
         public async Task<object> GetAllResumesAsyncByApplicantId(int id)
         {
-            string sql = $"{sqlPathMain}/GetAllResumeByApplicantId.sql".ReadStringFromatFromFile(id);
+            string sql = $"{sqlPathFolder}/GetAllResumeByApplicantId.sql".ReadStringFromatFromFile(id);
             IEnumerable<Resume.model.Resume> resumes = await this.QueryCommandIEnumerable<Resume.model.Resume>(sql);
             return new { count = resumes.Count(), resumes };
-        }
-
-        public async Task<Resume.model.Resume> GetResumeById(int id)
-        {
-            return await this.QueryCommandSingleOrDefaultAsync<Resume.model.Resume>($"{sqlPathMain}/GetResumeById.sql".ReadStringFromatFromFile(id));
         }
 
         public async Task<object> CreateResume(Resume.model.Resume resume, string identity)
@@ -56,7 +51,7 @@ namespace HhLib.Applicant.Managers
             return new { result = "success" };
         }
 
-        private protected override BDImageBase GetImageByType<T>(T @object)
+        private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Resume.model.Resume))
                 return new ResumeImage();

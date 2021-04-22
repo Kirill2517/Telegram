@@ -1,4 +1,4 @@
-﻿using HhLib.Applicant.Managers;
+﻿using HhLib.Applicant.managers;
 using HhLib.Applicant.model;
 using HhLib.DataUser.model;
 using HhLib.Share.Models;

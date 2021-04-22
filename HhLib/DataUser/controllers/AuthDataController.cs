@@ -1,4 +1,4 @@
-﻿using HhLib.Share.models;
+﻿using HhLib.Share.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -45,7 +45,7 @@ namespace HhLib.DataUser.controllers
             return await QueryCommandSingleAsync<bool>($"SELECT EXISTS(SELECT * FROM {new DataUserImage().Title} WHERE email = '{user.email}' and password = '{user.password}')");
         }
 
-        private protected override BDImageBase GetImageByType<T>(T @object)
+        private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Applicant.model.Applicant))
                 return new ApplicantImage();

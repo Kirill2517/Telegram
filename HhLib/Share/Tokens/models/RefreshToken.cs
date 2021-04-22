@@ -10,6 +10,7 @@ namespace HhLib.Share.Tokens.models
 {
     public class RefreshToken : Models.Object
     {
+        private static readonly Random Random = new();
         public static RefreshToken GenerateRefrashToken()
         {
             var list = new List<string>();
@@ -27,7 +28,6 @@ namespace HhLib.Share.Tokens.models
             return refreshToken;
         }
 
-        private static readonly Random Random = new();
         private static string SummaTokens(IEnumerable<string> guids)
         {
             var result = new StringBuilder();

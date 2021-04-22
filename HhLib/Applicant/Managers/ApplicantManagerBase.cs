@@ -1,6 +1,6 @@
 using HhLib.DataBaseImage;
 using HhLib.Share.Interfaces;
-using HhLib.Share.models;
+using HhLib.Share.Models;
 using HhLib.Share.Models;
 using HhLib.Static;
 using System;
@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace HhLib.Applicant.Managers
+namespace HhLib.Applicant.managers
 {
     public abstract class ApplicantManagerBase : DataBaseController
     {
-        protected const string sqlPathMain = Settings.SqlFolder + "/Applicant";
+        protected override string sqlPathFolder => Settings.SqlFolder + "/Applicant";
     }
 }

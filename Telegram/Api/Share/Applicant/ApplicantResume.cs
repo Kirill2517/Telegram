@@ -1,4 +1,4 @@
-﻿using HhLib.Applicant.Managers;
+﻿using HhLib.Applicant.managers;
 using HhLib.Resume.model;
 using HhLib.Share.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -30,15 +30,6 @@ namespace Telegram.Api.Share.Applicant
                 ApplicantManagerResume applicantManager = new();
                 return Ok(await applicantManager.GetAllResumesAsyncByApplicantEmail(this.GetUserIdentity(), range));
             });
-        }
-
-        [HttpPost]
-        [Route("getresume/{id:int}")]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetResumeById(int id)
-        {
-            ApplicantManagerResume applicantManager = new();
-            return Ok(await applicantManager.GetResumeById(id));
         }
 
         [HttpPost]

@@ -1,4 +1,4 @@
-﻿using HhLib.Share.models;
+﻿using HhLib.Share.Models;
 using HhLib.Share.Models;
 using HhLib.Share.Tokens.models;
 using System;
@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Object = HhLib.Share.Models.Object;
 
 namespace HhLib.Share.Tokens.managers
 {
     public class TokensManager : DataBaseController
     {
-        public async Task<Models.Object> GetTokens(SignInModel signInModel)
+        public async Task<Object> GetTokens(SignInModel signInModel)
         {
             RefreshTokenManager refreshTokenManager = new();
             int id = await this.GetUserId(signInModel.email);
@@ -52,7 +53,7 @@ namespace HhLib.Share.Tokens.managers
             };
         }
 
-        public async Task<Models.Object> UpdateToken(RefreshToken refreshToken)
+        public async Task<Object> UpdateToken(RefreshToken refreshToken)
         {
             var refreshManager = new RefreshTokenManager();
             refreshToken = await refreshManager.GetSession(refreshToken);

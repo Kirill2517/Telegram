@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using HhLib.DataBaseImage;
 using HhLib.Share.Models;
 
-namespace HhLib.Share.models
+namespace HhLib.Share.Models
 {
     public abstract class DataBaseController : IDisposable
     {
         private string connectionstring = Settings.connectionString;
         protected readonly MySqlConnection connection;
+        protected virtual string sqlPathFolder { get; } = Settings.SqlFolder;
         public DataBaseController()
         {
             connection = new MySqlConnection(connectionstring);
@@ -32,7 +33,7 @@ namespace HhLib.Share.models
             var applicantExists = await this.FieldExists(image.IdFieldName, await GetUserId(email), image.Title);
             return applicantExists ? AccountType.applicant : AccountType.employer;
         }
-        protected private virtual BDImageBase GetImageByType<T>(T @object) where T : Models.Object
+        protected private virtual BDImageBase GetImageByType(Models.Object @object)
         {
             return null;
         }
@@ -44,7 +45,7 @@ namespace HhLib.Share.models
             return await this.QueryCommandSingleOrDefaultAsync<bool>($"SELECT EXISTS(SELECT * FROM {bdTitle} WHERE {column} = @key)", new { key });
         }
 
-        public async Task<bool> IndexesExist<T>(T model) where T : Models.Object
+        public async Task<bool> IndexesExist(Models.Object model)
         {
             var targetImage = GetImageByType(model);
             foreach (var item in targetImage.GetIndexes(model))
@@ -55,7 +56,7 @@ namespace HhLib.Share.models
             return true;
         }
 
-        public async Task<bool> FieldsUniqAsync<T>(T model) where T : Models.Object
+        public async Task<bool> FieldsUniqAsync(Models.Object model)
         {
             var targetImage = GetImageByType(model);
             foreach (var item in targetImage.UniqFields(model))

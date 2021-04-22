@@ -1,5 +1,5 @@
 ﻿using HhLib.DataBaseImage;
-using HhLib.Share.models;
+using HhLib.Share.Models;
 using HhLib.Share.Models;
 using HhLib.Static;
 using System;
@@ -30,7 +30,7 @@ namespace HhLib.Speciality.Managers
             return await this.ActionCommand(command, speciality) > 0;
         }
 
-        private protected override BDImageBase GetImageByType<T>(T @object)
+        private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Speciality.Model.Speciality))
                 return new SpecialityImage();
