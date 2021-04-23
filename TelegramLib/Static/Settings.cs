@@ -20,13 +20,13 @@ namespace HhLib.Static
             return (JObject)JObject.Parse(File.ReadAllText("settings.json"))[configuration];
         }
 
-        public static PasswordValidatorHH PasswordValidator => Getjson()["PasswordValidator"].ToObject<PasswordValidatorHH>();
+        public static PasswordValidatorHH PasswordValidator => Getjson()[nameof(PasswordValidator)].ToObject<PasswordValidatorHH>();
 
         public static IPasswordHasher Hasher => new HhLib.Share.Utils.Hashes.Hasher();
         public const string SqlFolder = "sqls";
         public static string ISSUER => (string)Getjson()["issuer"]; // издатель токена
-        public static string AUDIENCE = (string)Getjson()["audience"]; // потребитель токена
-        private static readonly string KEY = (string)Getjson()["key"];   // ключ для шифрации
+        public static string AUDIENCE => (string)Getjson()["audience"]; // потребитель токена
+        private static string KEY => (string)Getjson()["key"];   // ключ для шифрации
         private static int LIFETIME => (int)Getjson()["lifetime"];
         private static int LIFETIMERT => (int)Getjson()["lifetimeRT"];
         public static TimeSpan LIFETIMETS => TimeSpan.FromMinutes(LIFETIME);

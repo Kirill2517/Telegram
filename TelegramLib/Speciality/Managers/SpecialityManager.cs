@@ -7,7 +7,7 @@ namespace HhLib.Speciality.Managers
 {
     public class SpecialityManager : DataBaseController
     {
-        protected const string sqlPathMain = Settings.SqlFolder + "/Speciality";
+        protected override string sqlPathFolder => base.sqlPathFolder + "/Speciality";
 
         public async Task<int> GetIdSpeciality(string name)
         {
