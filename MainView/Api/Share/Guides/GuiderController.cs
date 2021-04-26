@@ -1,6 +1,7 @@
 ﻿using HhLib.Resume.guider;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TelegramLib.Resume.enums;
 
 namespace Telegram.Api.Share.Guides
 {
