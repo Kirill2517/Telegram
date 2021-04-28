@@ -1,11 +1,11 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HhLib.Applicant.guider
+namespace TelegramLib.Applicant.guider
 {
     public class GuidApplicantAccountManager : GuidManagerBase
     {

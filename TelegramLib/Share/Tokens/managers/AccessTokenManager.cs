@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Models;
-using HhLib.Share.Tokens.models;
+﻿using TelegramLib.Share.Models;
+using TelegramLib.Share.Tokens.models;
 
-namespace HhLib.Share.Tokens.managers
+namespace TelegramLib.Share.Tokens.managers
 {
     internal class AccessTokenManager : DataBaseController
     {

@@ -1,12 +1,12 @@
-﻿using HhLib.Share.Models;
-using HhLib.Static;
+﻿using TelegramLib.Share.Models;
+using TelegramLib.Static;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace HhLib.Share.Tokens.models
+namespace TelegramLib.Share.Tokens.models
 {
     public class AccessToken : Models.Object
     {

@@ -1,9 +1,9 @@
-﻿using HhLib.Static;
+﻿using TelegramLib.Static;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace HhLib.Share.Tokens.models
+namespace TelegramLib.Share.Tokens.models
 {
     public class RefreshToken : Models.Object
     {

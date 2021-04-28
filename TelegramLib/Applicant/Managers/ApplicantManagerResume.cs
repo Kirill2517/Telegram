@@ -1,11 +1,11 @@
-﻿using HhLib.DataBaseImage;
-using HhLib.Resume.guider;
-using HhLib.Share.Utils.Extensions;
+﻿using TelegramLib.DataBaseImage;
+using TelegramLib.Resume.guider;
+using TelegramLib.Share.Utils.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HhLib.Applicant.managers
+namespace TelegramLib.Applicant.managers
 {
     public class ApplicantManagerResume : ApplicantManagerBase
     {
@@ -60,7 +60,7 @@ namespace HhLib.Applicant.managers
             return new { result = "success" };
         }
 
-        private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
+        private protected override BDImageBase GetImageByType(TelegramLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Resume.model.Resume))
             {

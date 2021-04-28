@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HhLib.Share.Tokens.models
+namespace TelegramLib.Share.Tokens.models
 {
     public class Tokens : Models.Object
     {

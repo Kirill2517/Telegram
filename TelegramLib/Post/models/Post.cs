@@ -1,19 +1,19 @@
-﻿using HhLib.Share.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Object = HhLib.Share.Models.Object;
+using TelegramLib.Share.Models;
+using Object = TelegramLib.Share.Models.Object;
 
-namespace HhLib.Resume.model
+namespace TelegramLib.Post.models
 {
-    public class Ability : Object
+    public class Post : Object
     {
-        public string description { get; set; }
+        public string name { get; set; }
         public override bool IsValid()
         {
-            if (new List<object> { description }.Contains(null))
+            if (new List<object> { name }.Contains(null))
             {
                 return false;
             }

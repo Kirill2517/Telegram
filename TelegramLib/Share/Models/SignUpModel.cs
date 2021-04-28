@@ -1,10 +1,10 @@
-﻿using HhLib.Share.Utils.Validator;
-using HhLib.Static;
+﻿using TelegramLib.Share.Utils.Validator;
+using TelegramLib.Static;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Models
+namespace TelegramLib.Share.Models
 {
     public class SignUpModel<T> : Object, IPasswordHolder
         where T : User

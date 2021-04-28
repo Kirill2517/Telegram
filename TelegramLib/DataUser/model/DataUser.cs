@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HhLib.DataUser.model
+namespace TelegramLib.DataUser.model
 {
     public class DataUser : Share.Models.Object
     {

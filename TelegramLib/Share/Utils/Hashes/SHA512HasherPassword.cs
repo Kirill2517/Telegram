@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Utils.Hashes
+namespace TelegramLib.Share.Utils.Hashes
 {
     public class Hasher : IPasswordHasher
     {

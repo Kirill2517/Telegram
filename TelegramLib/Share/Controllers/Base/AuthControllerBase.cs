@@ -1,9 +1,9 @@
-﻿using HhLib.DataUser.controllers;
-using HhLib.Share.Models;
-using HhLib.Share.Tokens.managers;
+﻿using TelegramLib.DataUser.controllers;
+using TelegramLib.Share.Models;
+using TelegramLib.Share.Tokens.managers;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Controllers.Base
+namespace TelegramLib.Share.Controllers.Base
 {
     public abstract class AuthControllerBase : AuthDataController
     {

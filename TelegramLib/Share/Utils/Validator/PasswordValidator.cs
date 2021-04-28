@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Utils.Validator
+namespace TelegramLib.Share.Utils.Validator
 {
     public class PasswordValidator : IIdentityValidator<string>
     {

@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Interfaces
+namespace TelegramLib.Share.Interfaces
 {
     public interface IStore<TObject>
         where TObject : Models.Object

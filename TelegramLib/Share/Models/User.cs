@@ -1,4 +1,4 @@
-﻿namespace HhLib.Share.Models
+﻿namespace TelegramLib.Share.Models
 {
     public abstract class User : Object
     {

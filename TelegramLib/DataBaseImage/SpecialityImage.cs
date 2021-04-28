@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HhLib.DataBaseImage
+namespace TelegramLib.DataBaseImage
 {
     internal class SpecialityImage : BDImageBase
     {

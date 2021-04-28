@@ -4,8 +4,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Text;
-using PasswordValidatorHH = HhLib.Share.Utils.Validator.PasswordValidator;
-namespace HhLib.Static
+using PasswordValidatorHH = TelegramLib.Share.Utils.Validator.PasswordValidator;
+namespace TelegramLib.Static
 {
     public class Settings
     {
@@ -22,7 +22,7 @@ namespace HhLib.Static
 
         public static PasswordValidatorHH PasswordValidator => Getjson()[nameof(PasswordValidator)].ToObject<PasswordValidatorHH>();
 
-        public static IPasswordHasher Hasher => new HhLib.Share.Utils.Hashes.Hasher();
+        public static IPasswordHasher Hasher => new TelegramLib.Share.Utils.Hashes.Hasher();
         public const string SqlFolder = "sqls";
         public static string ISSUER => (string)Getjson()["issuer"]; // издатель токена
         public static string AUDIENCE => (string)Getjson()["audience"]; // потребитель токена

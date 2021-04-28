@@ -1,6 +1,6 @@
-﻿using HhLib.Applicant.managers;
-using HhLib.Resume.model;
-using HhLib.Share.Models;
+﻿using TelegramLib.Applicant.managers;
+using TelegramLib.Resume.model;
+using TelegramLib.Share.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

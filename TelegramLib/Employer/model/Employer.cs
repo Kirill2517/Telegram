@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System.Collections.Generic;
 
-namespace HhLib.Employer.model
+namespace TelegramLib.Employer.model
 {
     public class Employer : User
     {

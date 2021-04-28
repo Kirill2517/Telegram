@@ -1,5 +1,5 @@
-﻿using HhLib.Applicant.managers;
-using HhLib.Applicant.model;
+﻿using TelegramLib.Applicant.managers;
+using TelegramLib.Applicant.model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

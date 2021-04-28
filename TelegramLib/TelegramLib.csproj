@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Post\managers\" />
     <Folder Include="Resume\managers\" />
   </ItemGroup>
 

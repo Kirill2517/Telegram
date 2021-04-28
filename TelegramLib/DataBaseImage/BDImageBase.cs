@@ -1,7 +1,7 @@
-﻿using HhLib.DataBaseImage.Models;
+﻿using TelegramLib.DataBaseImage.Models;
 using System.Collections.Generic;
 
-namespace HhLib.DataBaseImage
+namespace TelegramLib.DataBaseImage
 {
     internal abstract class BDImageBase
     {

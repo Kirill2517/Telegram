@@ -1,4 +1,4 @@
-﻿namespace HhLib.DataBaseImage.Models
+﻿namespace TelegramLib.DataBaseImage.Models
 {
     internal class DbIndex
     {

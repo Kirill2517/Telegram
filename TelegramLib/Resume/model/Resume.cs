@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HhLib.Resume.model
+namespace TelegramLib.Resume.model
 {
     public class Resume : Share.Models.Object
     {
@@ -13,7 +13,7 @@ namespace HhLib.Resume.model
         public string description { get; set; }
         public string title { get; set; }
         public DateTime created { get; set; }
-        public List<Ability> skills { get; set; } = new List<Ability>();
+        public List<Ability.model.Ability> skills { get; set; } = new List<Ability.model.Ability>();
         public override bool IsValid()
         {
             if (new List<object> { Speciality, title, workExperience }.Contains(null))

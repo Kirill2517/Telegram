@@ -1,4 +1,4 @@
-using HhLib.Static;
+using TelegramLib.Static;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

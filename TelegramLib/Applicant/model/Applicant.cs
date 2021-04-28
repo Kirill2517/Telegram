@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System.Text.Json.Serialization;
 
-namespace HhLib.Applicant.model
+namespace TelegramLib.Applicant.model
 {
     public class Applicant : User
     {

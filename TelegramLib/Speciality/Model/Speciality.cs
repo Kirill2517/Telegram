@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HhLib.Speciality.Model
+namespace TelegramLib.Speciality.Model
 {
     public class Speciality : Share.Models.Object
     {

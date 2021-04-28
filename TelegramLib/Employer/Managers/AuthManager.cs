@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System.Threading.Tasks;
 
-namespace HhLib.Employer.Managers
+namespace TelegramLib.Employer.Managers
 {
     public class AuthManager : DataBaseController
     {

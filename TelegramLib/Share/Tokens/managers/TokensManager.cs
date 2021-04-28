@@ -1,10 +1,10 @@
-﻿using HhLib.Share.Models;
-using HhLib.Share.Tokens.models;
+﻿using TelegramLib.Share.Models;
+using TelegramLib.Share.Tokens.models;
 using System;
 using System.Threading.Tasks;
-using Object = HhLib.Share.Models.Object;
+using Object = TelegramLib.Share.Models.Object;
 
-namespace HhLib.Share.Tokens.managers
+namespace TelegramLib.Share.Tokens.managers
 {
     public class TokensManager : DataBaseController
     {

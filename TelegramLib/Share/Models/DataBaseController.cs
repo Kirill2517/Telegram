@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using HhLib.DataBaseImage;
-using HhLib.Static;
+using TelegramLib.DataBaseImage;
+using TelegramLib.Static;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Models
+namespace TelegramLib.Share.Models
 {
     public abstract class DataBaseController : IDisposable
     {
@@ -30,7 +30,8 @@ namespace HhLib.Share.Models
             if (collection != null)
                 foreach (var item in collection)
                 {
-                    action(item);
+                    if (item != null)
+                        action(item);
                 }
         }
 
@@ -68,17 +69,18 @@ namespace HhLib.Share.Models
         {
             return await this.QueryCommandSingleAsync<int>("select last_insert_id();");
         }
-
         protected async Task<AccountType> GetAccountType(string email)
         {
             ApplicantImage image = new ApplicantImage();
             bool applicantExists = await FieldExists(image.IdFieldName, await GetUserId(email), image.Title);
             return applicantExists ? AccountType.applicant : AccountType.employer;
         }
+        [Obsolete]
         private protected virtual BDImageBase GetImageByType(Models.Object @object)
         {
             return null;
         }
+        [Obsolete]
         /// <summary>
         /// значение поля существует в бд
         /// </summary>
@@ -87,6 +89,7 @@ namespace HhLib.Share.Models
             return await QueryCommandSingleOrDefaultAsync<bool>($"SELECT EXISTS(SELECT * FROM {bdTitle} WHERE {column} = @key)", new { key });
         }
 
+        [Obsolete]
         public async Task<bool> IndexesExist(Models.Object model)
         {
             BDImageBase targetImage = GetImageByType(model);
@@ -100,6 +103,7 @@ namespace HhLib.Share.Models
             return true;
         }
 
+        [Obsolete]
         public async Task<bool> FieldsUniqAsync(Models.Object model)
         {
             BDImageBase targetImage = GetImageByType(model);
@@ -116,6 +120,7 @@ namespace HhLib.Share.Models
         public virtual void Dispose()
         {
             connection.CloseAsync();
+            GC.SuppressFinalize(this);
         }
     }
 }

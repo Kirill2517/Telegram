@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace HhLib.Share.Utils.Extensions
+namespace TelegramLib.Share.Utils.Extensions
 {
     internal static class StringExtensions
     {

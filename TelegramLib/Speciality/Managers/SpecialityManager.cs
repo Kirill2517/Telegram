@@ -1,9 +1,9 @@
-﻿using HhLib.DataBaseImage;
-using HhLib.Share.Models;
-using HhLib.Static;
+﻿using TelegramLib.DataBaseImage;
+using TelegramLib.Share.Models;
+using TelegramLib.Static;
 using System.Threading.Tasks;
 
-namespace HhLib.Speciality.Managers
+namespace TelegramLib.Speciality.Managers
 {
     public class SpecialityManager : DataBaseController
     {
@@ -28,7 +28,7 @@ namespace HhLib.Speciality.Managers
             return await ActionCommand(command, speciality) > 0;
         }
 
-        private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
+        private protected override BDImageBase GetImageByType(TelegramLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Speciality.Model.Speciality))
             {

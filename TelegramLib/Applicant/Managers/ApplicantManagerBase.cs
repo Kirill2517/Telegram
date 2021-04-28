@@ -1,7 +1,7 @@
-using HhLib.Share.Models;
-using HhLib.Static;
+using TelegramLib.Share.Models;
+using TelegramLib.Static;
 
-namespace HhLib.Applicant.managers
+namespace TelegramLib.Applicant.managers
 {
     public abstract class ApplicantManagerBase : DataBaseController
     {

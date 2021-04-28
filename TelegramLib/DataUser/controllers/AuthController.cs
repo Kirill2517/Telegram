@@ -1,15 +1,14 @@
-﻿using HhLib.Share.Controllers.Base;
-using HhLib.Share.Models;
-using HhLib.Share.Tokens.managers;
-using HhLib.Share.Tokens.models;
-using HhLib.Static;
+﻿using TelegramLib.Share.Controllers.Base;
+using TelegramLib.Share.Models;
+using TelegramLib.Share.Tokens.managers;
+using TelegramLib.Share.Tokens.models;
+using TelegramLib.Static;
 using System.Threading.Tasks;
 
-namespace HhLib.DataUser.controllers
+namespace TelegramLib.DataUser.controllers
 {
     public class AuthController : AuthControllerBase
     {
-
         public override async Task<object> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
             if (!await model.ValidPassword())

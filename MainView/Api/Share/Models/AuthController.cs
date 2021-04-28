@@ -1,7 +1,7 @@
-﻿using HhLib.Applicant.model;
-using HhLib.Employer.model;
-using HhLib.Share.Models;
-using HhLib.Share.Tokens.models;
+﻿using TelegramLib.Applicant.model;
+using TelegramLib.Employer.model;
+using TelegramLib.Share.Models;
+using TelegramLib.Share.Tokens.models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace Telegram.Api
         [Route("signin")]
         public async Task<IActionResult> SignIn(SignInModel identityUser)
         {
-            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
             return Ok(await controller.AuthorizeAsync(identityUser));
         }
 
@@ -41,7 +41,7 @@ namespace Telegram.Api
         [Route("updatetoken")]
         public async Task<IActionResult> UpdateTokens(RefreshToken refreshToken)
         {
-            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
             return Ok(await controller.UpdateTokens(refreshToken));
         }
 
@@ -50,14 +50,14 @@ namespace Telegram.Api
         [Authorize]
         public async Task<IActionResult> Logout(RefreshToken refreshToken)
         {
-            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
             ErrorModel logedout = await controller.Logout(refreshToken, this.GetUserIdentity());
             return Ok(logedout);
         }
 
         private async Task<IActionResult> SignUpIdentity<T>(SignUpModel<T> model) where T : User
         {
-            HhLib.DataUser.controllers.AuthController controller = new HhLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
             if (!this.UserIsAuthorized())
             {
                 if (!ModelState.IsValid)

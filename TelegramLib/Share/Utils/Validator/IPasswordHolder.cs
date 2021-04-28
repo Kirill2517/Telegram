@@ -1,8 +1,8 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Utils.Validator
+namespace TelegramLib.Share.Utils.Validator
 {
     internal interface IPasswordHolder
     {

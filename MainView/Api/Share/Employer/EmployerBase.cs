@@ -1,4 +1,4 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 using Telegram.Api.Share.Models;
 
 namespace Telegram.Api.Share.Employer

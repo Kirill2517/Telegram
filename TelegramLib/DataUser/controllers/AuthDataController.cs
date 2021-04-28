@@ -1,8 +1,8 @@
-﻿using HhLib.DataBaseImage;
-using HhLib.Share.Models;
+﻿using TelegramLib.DataBaseImage;
+using TelegramLib.Share.Models;
 using System.Threading.Tasks;
 
-namespace HhLib.DataUser.controllers
+namespace TelegramLib.DataUser.controllers
 {
     public class AuthDataController : DataBaseController
     {
@@ -39,7 +39,7 @@ namespace HhLib.DataUser.controllers
             return await QueryCommandSingleAsync<bool>($"SELECT EXISTS(SELECT * FROM {new DataUserImage().Title} WHERE email = '{user.email}' and password = '{user.password}')");
         }
 
-        private protected override BDImageBase GetImageByType(HhLib.Share.Models.Object @object)
+        private protected override BDImageBase GetImageByType(TelegramLib.Share.Models.Object @object)
         {
             if (@object.GetType() == typeof(Applicant.model.Applicant))
             {

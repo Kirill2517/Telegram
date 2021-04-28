@@ -1,6 +1,6 @@
-﻿using HhLib.Share.Models;
+﻿using TelegramLib.Share.Models;
 
-namespace HhLib.Applicant.model
+namespace TelegramLib.Applicant.model
 {
     public class ApplicantView : User
     {

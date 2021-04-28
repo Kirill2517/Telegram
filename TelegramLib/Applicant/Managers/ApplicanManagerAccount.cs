@@ -1,7 +1,7 @@
-﻿using HhLib.Share.Utils.Extensions;
+﻿using TelegramLib.Share.Utils.Extensions;
 using System.Threading.Tasks;
 
-namespace HhLib.Applicant.managers
+namespace TelegramLib.Applicant.managers
 {
     public class ApplicanManagerAccount : ApplicantManagerBase
     {

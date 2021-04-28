@@ -1,10 +1,10 @@
-﻿using HhLib.Share.Models;
-using HhLib.Share.Tokens.models;
-using HhLib.Share.Utils.Extensions;
-using HhLib.Static;
+﻿using TelegramLib.Share.Models;
+using TelegramLib.Share.Tokens.models;
+using TelegramLib.Share.Utils.Extensions;
+using TelegramLib.Static;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Tokens.managers
+namespace TelegramLib.Share.Tokens.managers
 {
     internal class RefreshTokenManager : DataBaseController
     {

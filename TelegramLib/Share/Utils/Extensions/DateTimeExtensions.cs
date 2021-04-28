@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HhLib.Share.Utils.Extensions
+namespace TelegramLib.Share.Utils.Extensions
 {
     public static class DateTimeExtensions
     {

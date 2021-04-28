@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HhLib.Share.Models
+namespace TelegramLib.Share.Models
 {
     public class SignInModel : Object
     {

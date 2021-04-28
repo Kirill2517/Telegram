@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HhLib.Share.Models
+namespace TelegramLib.Share.Models
 {
     public interface IResult<TError>
         where TError : class
