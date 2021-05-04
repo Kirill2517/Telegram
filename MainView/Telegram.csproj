@@ -75,13 +75,13 @@
     <None Update="sqls\Guid\Resume\GetResumeById.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sqls\Guid\Resume\InsertSkillToSkillGuid.sql">
+    <None Update="sqls\Ability\Skills\InsertSkillToSkillGuid.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sqls\Guid\Resume\InsertSkillToSkillResume.sql">
+    <None Update="sqls\Ability\Skills\InsertSkillToSkillResume.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="sqls\Guid\Resume\SelectSkillsBydescription.sql">
+    <None Update="sqls\Ability\Skills\SelectSkillsBydescription.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="sqls\refreshSessions\DeleteSessionById.sql">
@@ -106,5 +106,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <DebugType>None</DebugType>
+  <DebugSymbols>false</DebugSymbols>
+</PropertyGroup>
 
 </Project>

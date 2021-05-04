@@ -4,6 +4,7 @@ using TelegramLib.Share.Utils.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TelegramLib.Ability.managers;
 
 namespace TelegramLib.Applicant.managers
 {
@@ -46,6 +47,7 @@ namespace TelegramLib.Applicant.managers
             {
                 return new { error = "Model is not valid." };
             }
+            resume.DeleteDuplicatesDatas();
 
             resume.Owner = identity;
             BDImageBase image = GetImageByType(resume);
@@ -55,7 +57,7 @@ namespace TelegramLib.Applicant.managers
             await ActionCommand(sql, resume);
 
             resume.Id = await this.GetLastInsertedId();
-            new GuidResumeManager().InsertAbilities(resume);
+            new AbilityManager().InsertSkills(resume);
 
             return new { result = "success" };
         }

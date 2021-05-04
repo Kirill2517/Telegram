@@ -2,7 +2,7 @@
   "devSetting": {
     "issuer": "MyAuthServer",
     "audience": "MyAuthClient",
-    "lifetime": 3,
+    "lifetime": 100,
     "lifetimeRT" : 60,
     "key": "mysupersecret_secretkey!123",
     "dbConnection": "server=204.2.195.76;port=21504;database=TestDataBase;uid=Server;password=t4KZuAu)en",
