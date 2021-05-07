@@ -39,6 +39,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="sqls\Ability\Applicant\Negatives\InsertNegativeToNegativesApplicant.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sqls\Ability\Applicant\Negatives\InsertNegativeToNegativesGuid.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sqls\Ability\Applicant\Negatives\SelectNegativeBydescription.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sqls\Ability\Applicant\Positives\InsertPositiveToPositivesGuid.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sqls\Ability\Applicant\Positives\InsertPositiveToPositivesApplicant.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="sqls\Ability\Applicant\Positives\SelectPositiveBydescription.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="sqls\Applicant\Account\GetApplicantData.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

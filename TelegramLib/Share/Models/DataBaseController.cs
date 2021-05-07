@@ -12,12 +12,11 @@ namespace TelegramLib.Share.Models
 {
     public abstract class DataBaseController : IDisposable
     {
-        private readonly string connectionstring = Settings.connectionString;
-        private readonly MySqlConnection connection;
+        private readonly static string connectionstring = Settings.connectionString;
+        private readonly static MySqlConnection connection = new MySqlConnection(connectionstring);
         protected virtual string sqlPathFolder { get; } = Settings.SqlFolder;
-        public DataBaseController()
+        static DataBaseController()
         {
-            connection = new MySqlConnection(connectionstring);
             connection.OpenAsync();
         }
         protected async Task<IEnumerable<T>> QueryCommandIEnumerable<T>(string sql)
@@ -119,7 +118,6 @@ namespace TelegramLib.Share.Models
 
         public virtual void Dispose()
         {
-            connection.CloseAsync();
             GC.SuppressFinalize(this);
         }
     }

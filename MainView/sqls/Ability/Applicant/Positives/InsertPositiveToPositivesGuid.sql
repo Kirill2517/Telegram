@@ -1,0 +1,1 @@
+﻿INSERT INTO Positives_Guide (description) VALUES ('{0}');

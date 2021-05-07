@@ -22,7 +22,6 @@ namespace TelegramLib.Vacancy.guider
         }
 
 
-
         public async Task<IEnumerable<Ability.model.Ability>> GetSkillsOfVacancy(int idVacancy)
         {
             var sql = $"{sqlPathFolder}/GetAllSkillsByIdVacancy.sql".ReadStringFromatFromFile(idVacancy);

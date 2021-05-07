@@ -1,0 +1,1 @@
+﻿INSERT INTO Negatives_Guide (description) VALUES ('{0}');

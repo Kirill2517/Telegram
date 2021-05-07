@@ -1,0 +1,1 @@
+﻿INSERT INTO Applicant_Positives (idApplicant, idPositive) VALUES ({0}, {1});

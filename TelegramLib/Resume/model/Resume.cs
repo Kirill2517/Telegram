@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TelegramLib.Ability.model;
 
 namespace TelegramLib.Resume.model
 {
@@ -15,14 +16,12 @@ namespace TelegramLib.Resume.model
         public string title { get; set; }
         public DateTime created { get; set; }
         public List<Ability.model.Ability> skills { get; set; } = new List<Ability.model.Ability>();
-        public List<Ability.model.Ability> positives { get; set; } = new List<Ability.model.Ability>();
-        public List<Ability.model.Ability> negatives { get; set; } = new List<Ability.model.Ability>();
+        public Abilities Abilities { get; set; } = new Abilities();
 
         public void DeleteDuplicatesDatas()
         {
             skills = skills.GroupBy(a => a.description).Select(g => g.First()).ToList();
-            positives = positives.GroupBy(a => a.description).Select(g => g.First()).ToList();
-            negatives = negatives.GroupBy(a => a.description).Select(g => g.First()).ToList();
+            Abilities.DeleteDuplicatesDatas();
         }
 
         public override bool IsValid()

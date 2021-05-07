@@ -15,32 +15,26 @@ namespace TelegramLib.DataUser.controllers
             {
                 return new { errors = model.Errors };
             }
-
             if (!model.IsValid())
             {
                 return new { error = "Model is not valid." };
             }
-
             if (await EmailExistsAsync(model.User, model.User.DataUser.email))
             {
                 return new { error = "Email already exists." };
             }
-
             if (!(await FieldsUniqAsync(model.User.DataUser)))
             {
                 return new { error = "Uniq dataUser field already exists." };
             }
-
             if (!(await FieldsUniqAsync(model.User)))
             {
                 return new { error = "Uniq account field already exists." };
             }
-
             if (!(await IndexesExist(model.User)))
             {
                 return new { error = "Some values don't exist." };
             }
-
             if (!(await IndexesExist(model.User.DataUser)))
             {
                 return new { error = "Some values don't exist." };
@@ -55,9 +49,7 @@ namespace TelegramLib.DataUser.controllers
 
         protected override async Task<bool> AuthAsync(SignInModel model)
         {
-            //#if RELEASE
             model.password = Settings.Hasher.HashPassword(model.password);
-            //#endif
             return await CheckCorrectDataUserAsync(model);
         }
 

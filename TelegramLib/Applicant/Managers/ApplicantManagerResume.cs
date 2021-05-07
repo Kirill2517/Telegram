@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TelegramLib.Ability.managers;
+using TelegramLib.Resume.model;
 
 namespace TelegramLib.Applicant.managers
 {
@@ -26,12 +27,12 @@ namespace TelegramLib.Applicant.managers
                 ? $"{sqlPathFolder}/GetAllResumeByApplicantEmail.sql".ReadStringFromatFromFile(email)
                 : $"{sqlPathFolder}/SelectRangeOfMyResumeByEmail.sql".ReadStringFromatFromFile(email, range.start, range.count);
 
-            IEnumerable<Resume.model.Resume> resumes = await QueryCommandIEnumerable<Resume.model.Resume>(sql);
-            foreach (var resume in resumes)
+            List<Resume.model.Resume> resumes = new List<Resume.model.Resume>();
+            foreach (var id in await QueryCommandIEnumerable<int>(sql))
             {
-                resume.skills = (await new GuidResumeManager().GetSkillsOfResume(resume.Id)).ToList();
+                resumes.Add(await new GuidResumeManager().GetResumeById(id));
             }
-            return new { count = resumes.Count(), resumes };
+            return new { count = resumes.Count, resumes };
         }
 
         public async Task<object> GetAllResumesAsyncByApplicantId(int id)
@@ -57,7 +58,9 @@ namespace TelegramLib.Applicant.managers
             await ActionCommand(sql, resume);
 
             resume.Id = await this.GetLastInsertedId();
-            new AbilityManager().InsertSkills(resume);
+
+            using var abilityMan = new AbilityManagerResume();
+            abilityMan.InsertSkills(resume);
 
             return new { result = "success" };
         }
