@@ -28,40 +28,39 @@ namespace generator
 
             void func()
             {
-                for (int i = 0; i < 1000; i++)
-                {
-                    var client = new HttpClient();
-                    object u = null;
-                    string url = "";
-                    switch (random.Next(0, 2))
-                    {
-                        case 0:
-                            u = GenerateApplicant.GetApplicant();
-                            url = "appl";
-                            break;
-                        case 1:
-                            u = GenerateEmployer.GetEmployer();
-                            url = "empl";
-                            break;
-                        default:
-                            break;
-                    }
-                    var user = new { User = u, password = "123456", fingerprint = Guid.NewGuid().ToString() };
-                    Stopwatch stopwatch = new Stopwatch();
-                    stopwatch.Start();
-                    var data = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-                    var res = client.PostAsync($"http://localhost:5000/api/auth/signup/{url}", data);
-                    stopwatch.Stop();
-                    Console.WriteLine(stopwatch.Elapsed + $"\t{res.Result.StatusCode}");
-                }
+                
             }
         }
 
         static void Main(string[] args)
         {
-            myThread t1 = new myThread();
-            myThread t2 = new myThread();
-            myThread t3 = new myThread();
+            for (int i = 0; i < 1000; i++)
+            {
+                object u = null;
+                string url = "";
+                switch (random.Next(0, 2))
+                {
+                    case 0:
+                        u = GenerateApplicant.GetApplicant();
+                        url = "appl";
+                        break;
+                    case 1:
+                        u = GenerateEmployer.GetEmployer();
+                        url = "empl";
+                        break;
+                    default:
+                        break;
+                }
+                var user = new { User = u, password = "123456", fingerprint = Guid.NewGuid().ToString() };
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+                var client = new HttpClient();
+                var data = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                var res = client.PostAsync($"http://localhost:5000/api/auth/signup/{url}", data);
+                string result = res.Result.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(stopwatch.Elapsed + $"\t{result}");
+                stopwatch.Stop();
+            }
         }
     }
 }

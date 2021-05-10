@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace generator.entity
 {
-    public class Applicant
+    public class Applicant : User
     {
-        public Datauser dataUser { get; set; }
         public int idSex { get; set; }
         public int idEducation { get; set; }
         public int idTypeEmployment { get; set; }

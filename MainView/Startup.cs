@@ -98,7 +98,7 @@ namespace Telegram
                 });
             });
 #endif
-            services.AddTransient<MySqlConnection>(option =>
+            services.AddScoped(option =>
             {
                 var con = new MySqlConnection(Settings.connectionString);
                 con.Open();

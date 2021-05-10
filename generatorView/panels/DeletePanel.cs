@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -24,6 +25,7 @@ namespace generatorView.panels
             HttpClient client = new HttpClient();
             string requestUri = $"{Settings.baseurl}debugguider/common/deleterecords";
             var res = await client.DeleteAsync(requestUri);
+            File.WriteAllText(@"accounts.json", string.Empty);
             label1.Text = res.StatusCode.ToString();
         }
     }
