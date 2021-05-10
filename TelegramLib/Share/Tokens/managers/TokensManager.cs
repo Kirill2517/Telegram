@@ -3,14 +3,19 @@ using TelegramLib.Share.Tokens.models;
 using System;
 using System.Threading.Tasks;
 using Object = TelegramLib.Share.Models.Object;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Share.Tokens.managers
 {
     public class TokensManager : DataBaseController
     {
+        public TokensManager(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         public async Task<Object> GetTokens(SignInModel signInModel)
         {
-            RefreshTokenManager refreshTokenManager = new();
+            RefreshTokenManager refreshTokenManager = new(this.connection);
             int id = await GetUserId(signInModel.email);
             if (await refreshTokenManager.DriverIsSignedIn(signInModel.fingerprint, id))
             {
@@ -35,7 +40,7 @@ namespace TelegramLib.Share.Tokens.managers
 
         public async Task<ErrorModel> LogOut(RefreshToken refreshToken, string email)
         {
-            RefreshTokenManager refreshTokenManager = new();
+            RefreshTokenManager refreshTokenManager = new(this.connection);
             int id = await GetUserId(email);
             if (!await refreshTokenManager.DriverIsSignedIn(refreshToken, id))
             {
@@ -56,7 +61,7 @@ namespace TelegramLib.Share.Tokens.managers
 
         public async Task<Object> UpdateToken(RefreshToken refreshToken)
         {
-            RefreshTokenManager refreshManager = new RefreshTokenManager();
+            RefreshTokenManager refreshManager = new RefreshTokenManager(this.connection);
             refreshToken = await refreshManager.GetSession(refreshToken);
             if (refreshToken is null)
             {

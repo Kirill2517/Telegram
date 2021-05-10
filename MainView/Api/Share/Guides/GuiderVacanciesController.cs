@@ -6,19 +6,24 @@ using TelegramLib.Resume.enums;
 using TelegramLib.Vacancy.guider;
 using Telegram.Utils.Guider.baseinterfaces;
 using TelegramLib.Vacancy.models;
+using MySql.Data.MySqlClient;
 
 namespace Telegram.Api.Share.Guides
 {
     [ApiController]
     [Route("api/guider")]
-    public class GuiderVacancyController : ControllerBase, IVacancyGuider //реализция через интерфейсы
+    public class GuiderVacancyController : GuiderControllerbase, IVacancyGuider //реализция через интерфейсы
     {
+        public GuiderVacancyController(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         [HttpGet]
         [Route("vacancy/getvacancy/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            GuiderVacancyManager guider = new();
-            TelegramLib.Vacancy.models.Vacancy value = await guider.GetVacancyById(id);
+            GuiderVacancyManager guider = new(MySqlConnection);
+            Vacancy value = await guider.GetVacancyById(id);
             return base.Ok(value);
         }
     }

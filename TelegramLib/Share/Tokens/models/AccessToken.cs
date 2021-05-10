@@ -29,10 +29,12 @@ namespace TelegramLib.Share.Tokens.models
 
         internal static AccessToken GenerateAccessToken(SignInModel user)
         {
+            //оставить только guid
+            //все остальное записать в бд
             ClaimsIdentity claimsidentity = GetClaimsIdentity(user);
             DateTime now = DateTime.UtcNow;
             DateTime expires = now.Add(Settings.LIFETIMETS);
-            JwtSecurityToken jwt = new JwtSecurityToken(
+            JwtSecurityToken jwt = new(
             issuer: Settings.ISSUER,
             audience: Settings.AUDIENCE,
             notBefore: now,

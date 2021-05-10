@@ -6,11 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using TelegramLib.Ability.managers;
 using TelegramLib.Resume.model;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Applicant.managers
 {
     public class ApplicantManagerResume : ApplicantManagerBase
     {
+        public ApplicantManagerResume(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/Resume";
 
         //range == null     all
@@ -27,10 +32,10 @@ namespace TelegramLib.Applicant.managers
                 ? $"{sqlPathFolder}/GetAllResumeByApplicantEmail.sql".ReadStringFromatFromFile(email)
                 : $"{sqlPathFolder}/SelectRangeOfMyResumeByEmail.sql".ReadStringFromatFromFile(email, range.start, range.count);
 
-            List<Resume.model.Resume> resumes = new List<Resume.model.Resume>();
+            List<Resume.model.Resume> resumes = new();
             foreach (var id in await QueryCommandIEnumerable<int>(sql))
             {
-                resumes.Add(await new GuidResumeManager().GetResumeById(id));
+                resumes.Add(await new GuidResumeManager(this.connection).GetResumeById(id));
             }
             return new { count = resumes.Count, resumes };
         }
@@ -52,14 +57,14 @@ namespace TelegramLib.Applicant.managers
 
             resume.Owner = identity;
             BDImageBase image = GetImageByType(resume);
-            int idSpeciality = await new Speciality.Managers.SpecialityManager().GetIdSpeciality(resume.Speciality);
+            int idSpeciality = await new Speciality.Managers.SpecialityManager(this.connection).GetIdSpeciality(resume.Speciality);
             int idApplicant = await GetUserId(identity);
             string sql = $"{image.InsertCommand} values ({idApplicant}, {idSpeciality}, curtime(), {image.FieldsName});";
             await ActionCommand(sql, resume);
 
             resume.Id = await this.GetLastInsertedId();
 
-            using var abilityMan = new AbilityManagerResume();
+            using var abilityMan = new AbilityManagerResume(this.connection);
             abilityMan.InsertSkills(resume);
 
             return new { result = "success" };

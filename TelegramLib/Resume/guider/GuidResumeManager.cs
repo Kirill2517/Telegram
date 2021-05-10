@@ -5,11 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TelegramLib.Ability.model;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Resume.guider
 {
     public class GuidResumeManager : GuidManagerBase
     {
+        public GuidResumeManager(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
 
         protected override string sqlPathFolder => base.sqlPathFolder + "/Resume";
         public async Task<Resume.model.Resume> GetResumeById(int id)

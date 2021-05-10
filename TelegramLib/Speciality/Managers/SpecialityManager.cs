@@ -2,11 +2,16 @@
 using TelegramLib.Share.Models;
 using TelegramLib.Static;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Speciality.Managers
 {
     public class SpecialityManager : DataBaseController
     {
+        public SpecialityManager(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/Speciality";
 
         public async Task<int> GetIdSpeciality(string name)

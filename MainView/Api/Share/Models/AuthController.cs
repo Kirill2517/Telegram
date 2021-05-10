@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Telegram.Utils.Controller;
+using MySql.Data.MySqlClient;
 
 namespace Telegram.Api
 {
@@ -13,11 +14,17 @@ namespace Telegram.Api
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+        public AuthController(MySqlConnection mySqlConnection)
+        {
+            MySqlConnection = mySqlConnection;
+        }
+
+        public MySqlConnection MySqlConnection { get; }
         [HttpPost]
         [Route("signin")]
         public async Task<IActionResult> SignIn(SignInModel identityUser)
         {
-            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController(MySqlConnection);
             return Ok(await controller.AuthorizeAsync(identityUser));
         }
 
@@ -41,7 +48,7 @@ namespace Telegram.Api
         [Route("updatetoken")]
         public async Task<IActionResult> UpdateTokens(RefreshToken refreshToken)
         {
-            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController(MySqlConnection);
             return Ok(await controller.UpdateTokens(refreshToken));
         }
 
@@ -50,14 +57,14 @@ namespace Telegram.Api
         [Authorize]
         public async Task<IActionResult> Logout(RefreshToken refreshToken)
         {
-            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController(MySqlConnection);
             ErrorModel logedout = await controller.Logout(refreshToken, this.GetUserIdentity());
             return Ok(logedout);
         }
 
         private async Task<IActionResult> SignUpIdentity<T>(SignUpModel<T> model) where T : User
         {
-            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController();
+            TelegramLib.DataUser.controllers.AuthController controller = new TelegramLib.DataUser.controllers.AuthController(MySqlConnection);
             if (!this.UserIsAuthorized())
             {
                 if (!ModelState.IsValid)

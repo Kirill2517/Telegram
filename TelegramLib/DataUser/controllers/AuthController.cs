@@ -4,11 +4,21 @@ using TelegramLib.Share.Tokens.managers;
 using TelegramLib.Share.Tokens.models;
 using TelegramLib.Static;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.DataUser.controllers
 {
     public class AuthController : AuthControllerBase
     {
+        public AuthController(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
+        public async Task<bool> CheckEmail(string email)
+        {
+            return await FieldExists("email", email, "DataUser");
+        }
+
         public override async Task<object> SignUpUnauthorizedAsync<T>(SignUpModel<T> model)
         {
             if (!await model.ValidPassword())
@@ -43,7 +53,7 @@ namespace TelegramLib.DataUser.controllers
             await InsertDataUserAsync(model.User.DataUser, Settings.Hasher.HashPassword(model.password));
             await InsertUserAsync(model.User, model.User.DataUser.email);
             AccountType type = await GetAccountType(model.User.DataUser.email);
-            Share.Models.Object token = await new TokensManager().GetTokens(new SignInModel() { email = model.User.DataUser.email, accountType = type, fingerprint = model.fingerprint });
+            Share.Models.Object token = await new TokensManager(this.connection).GetTokens(new SignInModel() { email = model.User.DataUser.email, accountType = type, fingerprint = model.fingerprint });
             return token;
         }
 
@@ -55,13 +65,13 @@ namespace TelegramLib.DataUser.controllers
 
         public async Task<ErrorModel> Logout(RefreshToken refreshToken, string email)
         {
-            TokensManager tokensManager = new TokensManager();
+            TokensManager tokensManager = new TokensManager(this.connection);
             return await tokensManager.LogOut(refreshToken, email);
         }
 
         public async Task<object> UpdateTokens(RefreshToken refreshToken)
         {
-            return await new TokensManager().UpdateToken(refreshToken);
+            return await new TokensManager(this.connection).UpdateToken(refreshToken);
         }
 
         public async Task<bool> SignUpSecondAccount<T>(string identity, T model) where T : User

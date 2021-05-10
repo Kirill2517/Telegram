@@ -6,11 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TelegramLib.Vacancy.models;
 using TelegramLib.Share.Utils.Extensions;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Vacancy.guider
 {
     public class GuiderVacancyManager : GuidManagerBase
     {
+        public GuiderVacancyManager(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/Vacancy";
 
         public async Task<Vacancy.models.Vacancy> GetVacancyById(int id)

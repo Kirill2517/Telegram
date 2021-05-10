@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Telegram.Utils.Controller;
 using System.Collections.Generic;
 using TelegramLib.Ability.model;
+using MySql.Data.MySqlClient;
 
 namespace Telegram.Api.Share.Applicant
 {
@@ -14,13 +15,17 @@ namespace Telegram.Api.Share.Applicant
     [Route("api/[controller]")]
     public class ApplicantAccount : ApplicantBase
     {
+        public ApplicantAccount(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         [HttpGet]
         [Route("getdata")]
         public async Task<IActionResult> GetAccountData()
         {
             return await BaseFunction(async delegate ()
             {
-                ApplicanManagerAccount applicantManager = new();
+                ApplicanManagerAccount applicantManager = new(MySqlConnection);
                 return Ok(await applicantManager.GetDataUserAsync(this.GetUserIdentity()));
             });
         }
@@ -31,7 +36,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await base.BaseFunction(async delegate ()
             {
-                ApplicanManagerAccount applicantManager = new();
+                ApplicanManagerAccount applicantManager = new(MySqlConnection);
                 ApplicantView applicant = await applicantManager.GetApplicantDataAsync(this.GetUserIdentity());
                 return base.Ok(new { applicant.education, applicant.desiredWorkLocationArea, applicant.gender, applicant.typeEmployment });
             });
@@ -43,7 +48,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await base.BaseFunction(async delegate ()
             {
-                ApplicanManagerAccount applicantManager = new();
+                ApplicanManagerAccount applicantManager = new(MySqlConnection);
                 return Ok(await applicantManager.GetFullDataAsync(this.GetUserIdentity()));
             });
         }
@@ -56,7 +61,7 @@ namespace Telegram.Api.Share.Applicant
                 return BadRequest();
             return await base.BaseFunction(async delegate ()
             {
-                ApplicanManagerAccount applicantManager = new();
+                ApplicanManagerAccount applicantManager = new(MySqlConnection);
                 return Ok(await applicantManager.AddAbilities(this.GetUserIdentity(), abilities));
             });
         }

@@ -1,11 +1,16 @@
 ﻿using TelegramLib.DataBaseImage;
 using TelegramLib.Share.Models;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.DataUser.controllers
 {
     public class AuthDataController : DataBaseController
     {
+        public AuthDataController(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         public async Task<bool> EmailExistsAsync<T>(T user, string identity) where T : User
         {
             if (await FieldExists("email", identity, new DataUserImage().Title))

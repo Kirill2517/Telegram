@@ -2,11 +2,16 @@
 using TelegramLib.Share.Models;
 using TelegramLib.Share.Tokens.managers;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Share.Controllers.Base
 {
     public abstract class AuthControllerBase : AuthDataController
     {
+        protected AuthControllerBase(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         /// <summary>
         /// регистрация
         /// </summary>
@@ -26,7 +31,7 @@ namespace TelegramLib.Share.Controllers.Base
             if (await AuthAsync(user))
             {
                 user.accountType = await GetAccountType(user.email);
-                return await new TokensManager().GetTokens(user);
+                return await new TokensManager(this.connection).GetTokens(user);
             }
             else
             {

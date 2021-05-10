@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using TelegramLib.Ability.model;
 using TelegramLib.Ability.managers;
 using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Applicant.managers
 {
     public class ApplicanManagerAccount : ApplicantManagerBase
     {
+        public ApplicanManagerAccount(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/Account";
         public async Task<DataUser.model.DataUser> GetDataUserAsync(string email)
         {
@@ -33,7 +38,7 @@ namespace TelegramLib.Applicant.managers
         {
             if (!abilities.IsValid())
                 return new { error = "model is not valid." };
-            AbilityManagerApplicant abilityManager = new();
+            AbilityManagerApplicant abilityManager = new(this.connection);
             abilityManager.InsertPositives(await this.GetUserId(email), abilities.positives);
             abilityManager.InsertNegatives(await this.GetUserId(email), abilities.negatives);
             return new { success = "abilities has been added" };

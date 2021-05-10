@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,10 @@ namespace TelegramLib.Ability.managers
 {
     public class AbilityManagerApplicant : AbilityManagerBase
     {
+        public AbilityManagerApplicant(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/Applicant";
 
         public void InsertPositives(int idApplicant, List<Ability.model.Ability> positives)

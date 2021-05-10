@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.IdentityModel.Tokens;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using System;
 using System.IO;

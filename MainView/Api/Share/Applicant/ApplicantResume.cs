@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Telegram.Utils.Controller;
+using MySql.Data.MySqlClient;
 
 namespace Telegram.Api.Share.Applicant
 {
@@ -13,6 +14,9 @@ namespace Telegram.Api.Share.Applicant
     [Route("api/[controller]")]
     public class ApplicantResume : ApplicantBase
     {
+        public ApplicantResume(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
         //Варианты использования метода
         //без параметров - выдаст все свои резюме
         //с параметрами start и count - в определенном диапазоне
@@ -24,7 +28,7 @@ namespace Telegram.Api.Share.Applicant
             return await BaseFunction(async delegate ()
             {
                 Range range = Range.FactorRange(start, count);
-                ApplicantManagerResume applicantManager = new();
+                ApplicantManagerResume applicantManager = new(MySqlConnection);
                 return Ok(await applicantManager.GetAllResumesAsyncByApplicantEmail(this.GetUserIdentity(), range));
             });
         }
@@ -35,7 +39,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await BaseFunction(async delegate ()
             {
-                ApplicantManagerResume applicantManager = new();
+                ApplicantManagerResume applicantManager = new(MySqlConnection);
                 //TODO: возврат positives, negatives
                 return Ok(await applicantManager.CreateResume(resume, this.GetUserIdentity()));
             });

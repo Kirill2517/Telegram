@@ -3,11 +3,16 @@ using TelegramLib.Share.Tokens.models;
 using TelegramLib.Share.Utils.Extensions;
 using TelegramLib.Static;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace TelegramLib.Share.Tokens.managers
 {
     internal class RefreshTokenManager : DataBaseController
     {
+        public RefreshTokenManager(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/refreshSessions";
         /// <summary>
         /// определенный аккаунт существует на этом телефоне

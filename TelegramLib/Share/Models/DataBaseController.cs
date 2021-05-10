@@ -12,13 +12,14 @@ namespace TelegramLib.Share.Models
 {
     public abstract class DataBaseController : IDisposable
     {
-        private readonly static string connectionstring = Settings.connectionString;
-        private readonly static MySqlConnection connection = new MySqlConnection(connectionstring);
+        protected readonly MySqlConnection connection;
         protected virtual string sqlPathFolder { get; } = Settings.SqlFolder;
-        static DataBaseController()
+
+        public DataBaseController(MySqlConnection mySqlConnection)
         {
-            connection.OpenAsync();
+            connection = mySqlConnection;
         }
+
         protected async Task<IEnumerable<T>> QueryCommandIEnumerable<T>(string sql)
         {
             return await connection.QueryAsync<T>(sql);

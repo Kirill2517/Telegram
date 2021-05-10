@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,10 @@ namespace TelegramLib.Ability.managers
     }
     public class AbilityManagerBase : DataBaseController
     {
+        public AbilityManagerBase(MySqlConnection mySqlConnection) : base(mySqlConnection)
+        {
+        }
+
         protected override string sqlPathFolder => base.sqlPathFolder + "/Ability";
         protected private async Task InsertAbility(int idModel, Ability.model.Ability ability, SqlFileNameAbility sqlFile)
         {
