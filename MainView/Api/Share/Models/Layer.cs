@@ -24,17 +24,20 @@ namespace Telegram.Api.Share.Models
         }
 
         /// <summary>
-        /// функция доступна каждому методу в каждом слое, где нужна проверка ролей, вызывать именно эту функцию 
+        /// функция доступна каждому методу в каждом слое, где нужна проверка ролей, вызывать именно эту функцию. Уже включает BaseFunction
         /// </summary>
         /// <param name="func"></param>
         /// <returns></returns>
-        protected virtual async Task<IActionResult> BaseFunction(Func<Task<IActionResult>> func)
+        protected virtual async Task<IActionResult> AuthRoleCheck(Func<Task<IActionResult>> func)
         {
-            if (!new TelegramLib.DataUser.controllers.AuthController(Connection).CheckEmail(this.GetUserIdentity()).Result)
-                return BadRequest(new { error = "Задан несуществующий аккаунт." });
-            if (CheckRole())
-                return await func();
-            return BadRequest(new { error = "Неверный тип авторизации" });
+            return await BaseFunction(async () =>
+            {
+                if (!new TelegramLib.DataUser.controllers.AuthController(Connection).CheckEmail(this.GetUserIdentity()).Result)
+                    return BadRequest(new { error = "Задан несуществующий аккаунт." });
+                if (CheckRole())
+                    return await func();
+                return BadRequest(new { error = "Неверный тип авторизации" });
+            });
         }
     }
 }

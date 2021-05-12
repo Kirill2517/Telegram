@@ -23,7 +23,7 @@ namespace Telegram.Api.Share.Employer
         [Route("getallvacancies")]
         public async Task<IActionResult> GetAllResumeOfMine(int start, int count)
         {
-            return await BaseFunction(async delegate ()
+            return await AuthRoleCheck(async delegate ()
             {
                 Range range = Range.FactorRange(start, count);
                 EmployerManagerVacancy applicantManager = new(Connection);

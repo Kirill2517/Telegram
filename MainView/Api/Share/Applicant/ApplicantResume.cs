@@ -25,7 +25,7 @@ namespace Telegram.Api.Share.Applicant
         [Route("getallresume")]
         public async Task<IActionResult> GetAllResumeOfMine(int start, int count)
         {
-            return await BaseFunction(async delegate ()
+            return await AuthRoleCheck(async delegate ()
             {
                 Range range = Range.FactorRange(start, count);
                 ApplicantManagerResume applicantManager = new(Connection);
@@ -37,7 +37,7 @@ namespace Telegram.Api.Share.Applicant
         [Route("createresume")]
         public async Task<IActionResult> CreateResume(Resume resume)
         {
-            return await BaseFunction(async delegate ()
+            return await AuthRoleCheck(async delegate ()
             {
                 ApplicantManagerResume applicantManager = new(Connection);
                 //TODO: возврат positives, negatives

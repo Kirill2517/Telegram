@@ -22,9 +22,11 @@ namespace Telegram.Api.Share.Guides
         [Route("vacancy/getvacancy/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            GuiderVacancyManager guider = new(Connection);
-            Vacancy value = await guider.GetVacancyById(id);
-            return base.Ok(value);
+            return await BaseFunction(async () =>
+            {
+                GuiderVacancyManager guider = new(Connection);
+                Vacancy value = await guider.GetVacancyById(id); return base.Ok(value);
+            });
         }
     }
 }

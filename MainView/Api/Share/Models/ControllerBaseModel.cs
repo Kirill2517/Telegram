@@ -26,5 +26,13 @@ namespace Telegram.Api.Share.Models
             Console.WriteLine(stopwatch.Elapsed);
             return result;
         }
+
+        protected async Task<IActionResult> BaseFunction(Func<Task<IActionResult>> func)
+        {
+            if (ModelState.IsValid)
+                return await func();
+            else
+                return BadRequest();
+        }
     }
 }

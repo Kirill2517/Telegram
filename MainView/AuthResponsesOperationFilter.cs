@@ -16,9 +16,10 @@ namespace Telegram
                 .Union(context.MethodInfo.GetCustomAttributes(true))
                 .OfType<AuthorizeAttribute>();
 
-            if (authAttributes.Any())
-            {
-                var securityRequirement = new OpenApiSecurityRequirement()
+            if (!authAttributes.Any())
+                return;
+
+            var securityRequirement = new OpenApiSecurityRequirement()
                 {
                     {
                         // Put here you own security scheme, this one is an example
@@ -28,19 +29,15 @@ namespace Telegram
                             {
                                 Type = ReferenceType.SecurityScheme,
                                 Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
+                            }
                         },
                         new List<string>()
                     }
                 };
 
 
-                operation.Security = new List<OpenApiSecurityRequirement> { securityRequirement };
-                operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
-            }
+            operation.Security = new List<OpenApiSecurityRequirement> { securityRequirement };
+            operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
         }
     }
 }

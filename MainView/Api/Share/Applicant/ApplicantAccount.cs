@@ -23,7 +23,7 @@ namespace Telegram.Api.Share.Applicant
         [Route("getdata")]
         public async Task<IActionResult> GetAccountData()
         {
-            return await BaseFunction(async delegate ()
+            return await AuthRoleCheck(async delegate ()
             {
                 ApplicanManagerAccount applicantManager = new(Connection);
                 return Ok(await applicantManager.GetDataUserAsync(this.GetUserIdentity()));
@@ -34,7 +34,7 @@ namespace Telegram.Api.Share.Applicant
         [Route("getshortdata")]
         public async Task<IActionResult> GetApplicantData()
         {
-            return await base.BaseFunction(async delegate ()
+            return await base.AuthRoleCheck(async delegate ()
             {
                 ApplicanManagerAccount applicantManager = new(Connection);
                 ApplicantView applicant = await applicantManager.GetApplicantDataAsync(this.GetUserIdentity());
@@ -46,7 +46,7 @@ namespace Telegram.Api.Share.Applicant
         [Route("getfulldata")]
         public async Task<IActionResult> GetFullAccountData()
         {
-            return await base.BaseFunction(async delegate ()
+            return await base.AuthRoleCheck(async delegate ()
             {
                 ApplicanManagerAccount applicantManager = new(Connection);
                 return Ok(await applicantManager.GetFullDataAsync(this.GetUserIdentity()));
@@ -59,7 +59,7 @@ namespace Telegram.Api.Share.Applicant
         {
             if (abilities is null)
                 return BadRequest();
-            return await base.BaseFunction(async delegate ()
+            return await base.AuthRoleCheck(async delegate ()
             {
                 ApplicanManagerAccount applicantManager = new(Connection);
                 return Ok(await applicantManager.AddAbilities(this.GetUserIdentity(), abilities));
