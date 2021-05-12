@@ -24,7 +24,7 @@ namespace Telegram.Api.Share.Guides
         [Route("resume/getresume/{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            GuidResumeManager resumeManager = new(MySqlConnection);
+            GuidResumeManager resumeManager = new(Connection);
             return Ok(await resumeManager.GetResumeById(id));
         }
     }

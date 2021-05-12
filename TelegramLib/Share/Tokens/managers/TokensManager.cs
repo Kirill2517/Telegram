@@ -17,7 +17,7 @@ namespace TelegramLib.Share.Tokens.managers
         {
             RefreshTokenManager refreshTokenManager = new(this.connection);
             int id = await GetUserId(signInModel.email);
-            if (await refreshTokenManager.DriverIsSignedIn(signInModel.fingerprint, id))
+            if (await refreshTokenManager.DriverIsSignedIn(signInModel.deviceId, id))
             {
                 return new ErrorModel()
                 {
@@ -27,7 +27,7 @@ namespace TelegramLib.Share.Tokens.managers
             }
 
             AccessToken accesstoken = AccessToken.GenerateAccessToken(signInModel);
-            RefreshToken refreshToken = await refreshTokenManager.GenerateNewSeesion(id, signInModel.fingerprint);
+            RefreshToken refreshToken = await refreshTokenManager.GenerateNewSeesion(id, signInModel.deviceId);
 
             return new models.Tokens()
             {
@@ -51,7 +51,7 @@ namespace TelegramLib.Share.Tokens.managers
                 };
             }
 
-            await refreshTokenManager.DeleteSession(id, refreshToken.fingerprint);
+            await refreshTokenManager.DeleteSession(id, refreshToken.deviceId);
             return new ErrorModel()
             {
                 Code = 200,
@@ -82,9 +82,9 @@ namespace TelegramLib.Share.Tokens.managers
                 };
             }
 
-            await refreshManager.DeleteSession(refreshToken.idDataUser, refreshToken.fingerprint);
+            await refreshManager.DeleteSession(refreshToken.idDataUser, refreshToken.deviceId);
             string email = await GetEmailById(refreshToken.idDataUser);
-            return await GetTokens(new SignInModel() { accountType = await GetAccountType(email), email = email, fingerprint = refreshToken.fingerprint });
+            return await GetTokens(new SignInModel() { accountType = await GetAccountType(email), email = email, deviceId = refreshToken.deviceId });
         }
     }
 }

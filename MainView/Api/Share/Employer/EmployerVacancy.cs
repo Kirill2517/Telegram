@@ -26,7 +26,7 @@ namespace Telegram.Api.Share.Employer
             return await BaseFunction(async delegate ()
             {
                 Range range = Range.FactorRange(start, count);
-                EmployerManagerVacancy applicantManager = new(MySqlConnection);
+                EmployerManagerVacancy applicantManager = new(Connection);
                 return Ok(await applicantManager.GetAllVacanciesAsyncByApplicantEmail(this.GetUserIdentity(), range));
             });
         }

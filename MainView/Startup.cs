@@ -11,6 +11,10 @@ using System.Net.Mime;
 using Microsoft.OpenApi.Models;
 using System;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Authorization;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Telegram
 {
@@ -57,6 +61,7 @@ namespace Telegram
                         options.InvalidModelStateResponseFactory = context =>
                         {
                             BadRequestObjectResult result = new BadRequestObjectResult(context.ModelState);
+           
                             result.ContentTypes.Add(MediaTypeNames.Application.Json);
                             return result;
                         };
@@ -82,20 +87,7 @@ namespace Telegram
                     In = ParameterLocation.Header,
                     Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
                 });
-                swagger.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                          new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                     Array.Empty<string>()
-                    }
-                });
+                swagger.OperationFilter<AuthResponsesOperationFilter>();
             });
 #endif
             services.AddScoped(option =>

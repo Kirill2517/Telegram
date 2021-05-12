@@ -60,13 +60,13 @@ namespace generatorView.panels
             if (GenEmpl)
                 for (int i = 0; i < Count / 2; i++)
                 {
-                    await Generate(GenerateEmployer.GetEmployer(), "empl");
+                    await Generate(GenerateEmployer.GetEmployer(), "employer");
                 }
 
             if (GenAppl)
                 for (int i = 0; i < Count / 2; i++)
                 {
-                    await Generate(GenerateApplicant.GetApplicant(), "appl");
+                    await Generate(GenerateApplicant.GetApplicant(), "applicant");
                 }
 
             using (StreamReader reader = new StreamReader(@"accounts.json", Encoding.Default))

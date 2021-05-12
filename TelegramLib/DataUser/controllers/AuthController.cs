@@ -53,7 +53,7 @@ namespace TelegramLib.DataUser.controllers
             await InsertDataUserAsync(model.User.DataUser, Settings.Hasher.HashPassword(model.password));
             await InsertUserAsync(model.User, model.User.DataUser.email);
             AccountType type = await GetAccountType(model.User.DataUser.email);
-            Share.Models.Object token = await new TokensManager(this.connection).GetTokens(new SignInModel() { email = model.User.DataUser.email, accountType = type, fingerprint = model.fingerprint });
+            Share.Models.Object token = await new TokensManager(this.connection).GetTokens(new SignInModel() { email = model.User.DataUser.email, accountType = type, deviceId = model.deviceId });
             return token;
         }
 

@@ -28,7 +28,7 @@ namespace Telegram.Api.Share.Applicant
             return await BaseFunction(async delegate ()
             {
                 Range range = Range.FactorRange(start, count);
-                ApplicantManagerResume applicantManager = new(MySqlConnection);
+                ApplicantManagerResume applicantManager = new(Connection);
                 return Ok(await applicantManager.GetAllResumesAsyncByApplicantEmail(this.GetUserIdentity(), range));
             });
         }
@@ -39,7 +39,7 @@ namespace Telegram.Api.Share.Applicant
         {
             return await BaseFunction(async delegate ()
             {
-                ApplicantManagerResume applicantManager = new(MySqlConnection);
+                ApplicantManagerResume applicantManager = new(Connection);
                 //TODO: возврат positives, negatives
                 return Ok(await applicantManager.CreateResume(resume, this.GetUserIdentity()));
             });

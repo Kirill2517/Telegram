@@ -39,7 +39,7 @@ namespace TelegramLib.Share.Tokens.models
             return Settings.Hasher.HashPassword(result.ToString().Replace("-", string.Empty));
         }
 
-        public string fingerprint { get; set; }
+        public string deviceId { get; set; }
         public string refreshToken { get; set; }
         public DateTime expiresIn { get; set; }
         public DateTime createdAt { get; set; }
@@ -47,7 +47,7 @@ namespace TelegramLib.Share.Tokens.models
 
         public override bool IsValid()
         {
-            if (new List<object> { fingerprint, refreshToken }.Contains(null))
+            if (new List<object> { deviceId, refreshToken }.Contains(null))
             {
                 return false;
             }
