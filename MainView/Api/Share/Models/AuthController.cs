@@ -27,10 +27,10 @@ namespace Telegram.Api
         public async Task<IActionResult> SignIn(SignInModel identityUser)
         {
             return await BaseFunction(async () =>
-           {
+            {
                TelegramLib.DataUser.controllers.AuthController controller = new(Connection);
                return Ok(await controller.AuthorizeAsync(identityUser));
-           });
+            });
         }
 
         [HttpPost]

@@ -32,7 +32,7 @@ namespace Telegram.Api.Share.Models
         {
             return await BaseFunction(async () =>
             {
-                if (!new TelegramLib.DataUser.controllers.AuthController(Connection).CheckEmail(this.GetUserIdentity()).Result)
+                if (!await new TelegramLib.DataUser.controllers.AuthController(Connection).CheckEmail(this.GetUserIdentity()))
                     return BadRequest(new { error = "Задан несуществующий аккаунт." });
                 if (CheckRole())
                     return await func();
