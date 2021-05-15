@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TelegramLib.Share.Models
 {
-    public abstract class DataBaseController : IDisposable
+    public abstract class DataBaseController
     {
         protected readonly MySqlConnection connection;
         protected virtual string sqlPathFolder { get; } = Settings.SqlFolder;
@@ -115,11 +115,6 @@ namespace TelegramLib.Share.Models
                 }
             }
             return true;
-        }
-
-        public virtual void Dispose()
-        {
-            GC.SuppressFinalize(this);
         }
     }
 }

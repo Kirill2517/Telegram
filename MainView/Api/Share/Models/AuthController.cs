@@ -37,14 +37,14 @@ namespace Telegram.Api
         [Route("signup/applicant")]
         public async Task<IActionResult> SignUp(SignUpModel<Applicant> model)
         {
-            return await DiagnosticStopWatch(() => SignUpIdentity(model));
+            return await DiagnosticStopWatch(() => SignUpIdentity(model), nameof(SignUp));
         }
 
         [HttpPost]
         [Route("signup/employer")]
         public async Task<IActionResult> SignUp(SignUpModel<Employer> model)
         {
-            return await DiagnosticStopWatch(() => SignUpIdentity(model));
+            return await DiagnosticStopWatch(() => SignUpIdentity(model), nameof(SignUp));
         }
 
         [HttpPost]

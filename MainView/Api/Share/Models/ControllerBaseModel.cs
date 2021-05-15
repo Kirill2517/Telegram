@@ -17,13 +17,13 @@ namespace Telegram.Api.Share.Models
 
         public MySqlConnection Connection { get; set; }
 
-        public Task<T> DiagnosticStopWatch<T>(Func<Task<T>> func)
+        public Task<T> DiagnosticStopWatch<T>(Func<Task<T>> func, string funName)
         {
-            Stopwatch stopwatch = new Stopwatch();
+            Stopwatch stopwatch = new();
             stopwatch.Start();
             var result = func();
             stopwatch.Stop();
-            Console.WriteLine(stopwatch.Elapsed);
+            Console.WriteLine($"{funName} - {stopwatch.Elapsed}");
             return result;
         }
 

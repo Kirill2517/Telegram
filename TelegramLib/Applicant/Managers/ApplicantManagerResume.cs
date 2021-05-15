@@ -64,7 +64,7 @@ namespace TelegramLib.Applicant.managers
 
             resume.Id = await this.GetLastInsertedId();
 
-            using var abilityMan = new AbilityManagerResume(this.connection);
+            var abilityMan = new AbilityManagerResume(this.connection);
             abilityMan.InsertSkills(resume);
 
             return new { result = "success" };

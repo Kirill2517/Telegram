@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Telegram
 {
@@ -61,7 +62,7 @@ namespace Telegram
                         options.InvalidModelStateResponseFactory = context =>
                         {
                             BadRequestObjectResult result = new BadRequestObjectResult(context.ModelState);
-           
+
                             result.ContentTypes.Add(MediaTypeNames.Application.Json);
                             return result;
                         };
@@ -90,7 +91,8 @@ namespace Telegram
                 swagger.OperationFilter<AuthResponsesOperationFilter>();
             });
 #endif
-            services.AddScoped(option =>
+
+            services.TryAddScoped(option =>
             {
                 var con = new MySqlConnection(Settings.connectionString);
                 con.Open();

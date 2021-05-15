@@ -36,12 +36,13 @@ namespace generatorView.panels
     {
         public string email { get; set; }
         public string password { get; set; }
-        public string fingerprint { get; set; }
+        public string deviceId { get; set; }
         public string access_token { get; set; }
         public string refresh_token { get; set; }
         public DateTime expires { get; set; }
 
     }
+
     class UserGenerator
     {
         private int Count { get; }
@@ -84,9 +85,9 @@ namespace generatorView.panels
 
         private async Task Generate(User u, string url)
         {
-            var fingerprint = Guid.NewGuid().ToString();
+            var deviceId = Guid.NewGuid().ToString();
             var password = "123456";
-            var user = new { User = u, password, fingerprint };
+            var user = new { User = u, password, deviceId };
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             var client = new HttpClient();
@@ -99,7 +100,7 @@ namespace generatorView.panels
             if (exist.access_token != null)
             {
                 exist.password = password;
-                exist.fingerprint = fingerprint;
+                exist.deviceId = deviceId;
                 exists.Add(exist);
             }
 
